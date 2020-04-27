@@ -1,5 +1,13 @@
 <template>
-  <p>{{ voice }}</p>
+  <div class="vm-image">
+    <img
+      :src="`/images/${this.voice.icon}`"
+      :alt="voice.name"
+    >
+    <p>
+      {{ voice.name }}
+    </p>
+  </div>
 </template>
 
 <script>
@@ -10,6 +18,11 @@ export default {
 
   props: {
     voice: types.voice,
+  },
+
+  methods: {
+    getImageSrc() {
+    },
   },
 };
 </script>
