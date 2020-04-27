@@ -5,7 +5,13 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
+    'plugin:jsdoc/recommended',
+    'plugin:testing-library/recommended',
     '@vue/airbnb',
+  ],
+  plugins: [
+    'jsdoc',
+    'testing-library',
   ],
   parserOptions: {
     parser: 'babel-eslint',
