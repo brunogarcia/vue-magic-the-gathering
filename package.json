@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@znck/prop-types": "^0.6.3",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vuetify": "^2.2.11",
