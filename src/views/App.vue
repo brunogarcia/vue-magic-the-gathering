@@ -2,8 +2,8 @@
   <v-app>
     <AppBar />
     <v-content v-if="!loading">
-      <ProVoices />
       <FavouriteVoices />
+      <ProVoices />
     </v-content>
   </v-app>
 </template>

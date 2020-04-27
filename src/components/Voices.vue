@@ -4,8 +4,9 @@
       <v-col
         v-for="voice in voices"
         :key="voice.id"
-        cols="12"
-        lg="2"
+        cols="6"
+        sm="3"
+        md="2"
       >
         <Voice :voice="voice" />
       </v-col>
