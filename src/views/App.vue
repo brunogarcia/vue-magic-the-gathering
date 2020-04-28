@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import AppBar from '@/components/AppBar.vue';
+import AppBar from '@/views/AppBar.vue';
 import ProVoices from '@/views/ProVoices.vue';
 import FavouriteVoices from '@/views/FavouriteVoices.vue';
 

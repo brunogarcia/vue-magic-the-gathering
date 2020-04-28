@@ -1,9 +1,12 @@
 import api from '@/api';
 import types from './utils/types';
 import mapVoices from './utils/mapVoices';
+import getFilteredVoices from './utils/getFilteredVoices';
+import isValidFilterValue from './utils/isValidFilterValue';
 
 const {
   SAVE_VOICES,
+  FILTER_VOICES,
   SAVE_FAVOURITE_VOICE,
 } = types;
 
@@ -11,6 +14,7 @@ export default {
   namespaced: true,
   state: {
     voices: [],
+    filtered: [],
   },
   actions: {
     /**
@@ -39,6 +43,17 @@ export default {
     saveFavouriteVoice({ commit }, id) {
       commit(SAVE_FAVOURITE_VOICE, id);
     },
+
+    /**
+     * Filter voices
+     *
+     * @param {object} context - Vuex context
+     * @param {Function} context.commit - Vuex commit
+     * @param {string} value - The value for filter the voices
+     */
+    filterVoices({ commit }, value) {
+      commit(FILTER_VOICES, value);
+    },
   },
   mutations: {
     /**
@@ -62,8 +77,21 @@ export default {
       const voiceIndex = voices.findIndex((voice) => voice.id === id);
 
       voices[voiceIndex].favourite = !voices[voiceIndex].favourite;
-
       state.voices = voices;
+    },
+
+    /**
+     * Filter voices
+     *
+     * @param {object} state - Vuex state
+     * @param {string} value - The value for filter the voices
+     */
+    [FILTER_VOICES](state, value) {
+      const { voices } = state;
+
+      state.filtered = isValidFilterValue(value)
+        ? getFilteredVoices(voices, value)
+        : [];
     },
   },
   getters: {
@@ -76,10 +104,18 @@ export default {
     voices: (state) => state.voices,
 
     /**
+     * Get the filtered voices
+     *
+     * @param {object} state - The state of the module
+     * @returns {Array<object>} - The voices filtered
+     */
+    filteredVoices: (state) => state.filtered,
+
+    /**
      * Get only the favourite voices
      *
      * @param {object} state - The state of the module
-     * @returns {Array<object>} - The Favourite voices stored
+     * @returns {Array<object>} - The favourite voices stored
      */
     favouriteVoices: (state) => state.voices.filter((voice) => voice.favourite),
   },

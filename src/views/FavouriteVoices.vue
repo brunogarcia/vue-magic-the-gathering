@@ -7,7 +7,7 @@
         offset-xl="2"
       >
         <VoicesTitle text="Favourite Voices" />
-        <Voices :voices="voices()" />
+        <Voices :voices="voices" />
       </v-col>
     </v-row>
   </v-container>
@@ -27,15 +27,13 @@ export default {
   },
 
   computed: {
-    show() {
-      return this.voices().length > 0;
-    },
-  },
-
-  methods: {
     ...mapGetters({
       voices: 'voices/favouriteVoices',
     }),
+
+    show() {
+      return this.voices.length > 0;
+    },
   },
 };
 </script>

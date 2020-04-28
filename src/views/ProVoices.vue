@@ -7,7 +7,7 @@
         offset-xl="2"
       >
         <VoicesTitle text="Pro Voices" />
-        <Voices :voices="voices()" />
+        <Voices :voices="getVoices()" />
       </v-col>
     </v-row>
   </v-container>
@@ -26,10 +26,17 @@ export default {
     VoicesTitle,
   },
 
-  methods: {
+  computed: {
     ...mapGetters({
       voices: 'voices/voices',
+      filteredVoices: 'voices/filteredVoices',
     }),
+  },
+
+  methods: {
+    getVoices() {
+      return this.filteredVoices.length > 0 ? this.filteredVoices : this.voices;
+    },
   },
 };
 </script>

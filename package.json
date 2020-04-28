@@ -11,6 +11,7 @@
   "dependencies": {
     "@znck/prop-types": "^0.6.3",
     "core-js": "^3.6.4",
+    "lodash.isnil": "^4.0.0",
     "vue": "^2.6.11",
     "vuetify": "^2.2.11",
     "vuex": "^3.1.3"

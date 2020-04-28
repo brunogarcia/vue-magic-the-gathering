@@ -5,7 +5,8 @@ const getVoices = () => import(/* webpackChunkName: "voices" */ './mockData.json
 /**
  * Fecth voices
  *
- * @returns {Promise} - The object promise
+ * @async
+ * @returns {Array<object>} - The voices list
  */
 async function fecthVoices() {
   const voices = await getVoices();
