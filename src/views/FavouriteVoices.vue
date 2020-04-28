@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="show">
-    <p>Favourite Voices</p>
+    <VoicesTitle text="Favourite Voices" />
     <Voices :voices="voices()" />
   </v-container>
 </template>
@@ -8,12 +8,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Voices from '@/components/Voices.vue';
+import VoicesTitle from '@/components/VoicesTitle.vue';
 
 export default {
   name: 'FavouriteVoices',
 
   components: {
     Voices,
+    VoicesTitle,
   },
 
   computed: {

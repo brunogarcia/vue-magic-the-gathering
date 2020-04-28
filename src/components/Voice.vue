@@ -11,7 +11,7 @@
       :src="`/images/${this.voice.icon}`"
     >
 
-    <p class="body-2">
+    <p class="mt-2 body-2 font-weight-medium">
       {{ voice.name }}
     </p>
 
