@@ -1,16 +1,9 @@
 <template>
   <div
     class="vm-voice"
-    @mouseover="onMouseOverImage"
-    @mouseleave="onMouseLeaveImage"
+    @mouseover="onMouseOverVoiceFavourite"
+    @mouseleave="onMouseLeaveVoiceFavourite"
   >
-    <div
-      v-if="showVoiceFavouriteOn"
-      class="vm-voice-favourite--on"
-    >
-      <VoiceFavouriteOn />
-    </div>
-
     <img
       :alt="voice.name"
       :src="`/images/${this.voice.icon}`"
@@ -19,13 +12,17 @@
     <p class="body-2">
       {{ voice.name }}
     </p>
+
+    <VoiceFavourite
+      :favourite="false"
+      :mouseOver="mouseOverVoiceFavourite"
+    />
   </div>
 </template>
 
 <script>
 import types from '@/utils/types';
-import VoiceFavouriteOn from '@/assets/voice-favourite.svg';
-// import VoiceFavouriteOff from '@/assets/voice-favourite-off.svg';
+import VoiceFavourite from '@/components/VoiceFavourite.vue';
 
 export default {
   name: 'Voice',
@@ -34,22 +31,21 @@ export default {
     voice: types.voice,
   },
 
-  data: () => ({
-    showVoiceFavouriteOn: false,
-  }),
-
   components: {
-    VoiceFavouriteOn,
-    // VoiceFavouriteOff,
+    VoiceFavourite,
   },
 
+  data: () => ({
+    mouseOverVoiceFavourite: false,
+  }),
+
   methods: {
-    onMouseOverImage() {
-      this.showVoiceFavouriteOn = true;
+    onMouseOverVoiceFavourite() {
+      this.mouseOverVoiceFavourite = true;
     },
 
-    onMouseLeaveImage() {
-      this.showVoiceFavouriteOn = false;
+    onMouseLeaveVoiceFavourite() {
+      this.mouseOverVoiceFavourite = false;
     },
   },
 };
@@ -62,15 +58,6 @@ export default {
     img {
       border-radius: 100%;
       background-color: #d2d2d2;
-    }
-
-    .vm-voice-favourite--on {
-      position: absolute;
-      top: 0.6em;
-      right: 1.6em;
-      padding: 0 4px;
-      border-radius: 100%;
-      background-color: #ffffff;
     }
   }
 </style>
