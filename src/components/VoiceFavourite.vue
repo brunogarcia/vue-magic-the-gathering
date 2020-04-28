@@ -54,7 +54,7 @@ export default {
   .vm-voice-favourite {
     position: absolute;
     top: 0.6em;
-    right: 1.6em;
+    right: 0;
     padding: 0 4px;
     border-radius: 100%;
     background-color: #ffffff;

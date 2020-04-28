@@ -1,6 +1,6 @@
 <template>
   <div class="vm-voices-title">
-    <p class="vm-voices-title-text subtitle-1">
+    <p class="vm-voices-title-text">
       {{ text }}
     </p>
     <div class="vm-voices-title-line" />
@@ -23,20 +23,23 @@ export default {
     position: relative;
 
     .vm-voices-title-text {
+      z-index: 2;
+      position: relative;
       color: #858585;
+      padding: 5px 10px;
+      font-size: 1.2em;
+      font-weight: 400;
+      line-height: 1.75em;
+      display: inline-block;
       text-transform: uppercase;
       background-color: #1b1b1b;
-      display: inline-block;
-      padding: 5px 10px;
-      position: relative;
-      z-index: 2;
     }
 
     .vm-voices-title-line {
-      position: absolute;
-      top: 18px;
-      width: 100%;
       z-index: 1;
+      position: absolute;
+      top: 20px;
+      width: 100%;
       border-top: solid 1px #858585;
     }
   }

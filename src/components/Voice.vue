@@ -6,19 +6,21 @@
     @mouseover="onMouseOverVoice"
     @mouseleave="onMouseLeaveVoice"
   >
-    <img
-      :alt="voice.name"
-      :src="`/images/${this.voice.icon}`"
-    >
+    <div class="vm-voice-image">
+      <img
+        :alt="voice.name"
+        :src="`/images/${this.voice.icon}`"
+      >
+
+      <VoiceFavourite
+        :voice="voice"
+        :mouseOver="mouseOverVoice"
+      />
+    </div>
 
     <p class="mt-2 body-2 font-weight-medium">
       {{ voice.name }}
     </p>
-
-    <VoiceFavourite
-      :voice="voice"
-      :mouseOver="mouseOverVoice"
-    />
   </div>
 </template>
 
@@ -61,8 +63,14 @@ export default {
 
 <style lang="scss">
   .vm-voice {
-    position: relative;
     cursor: pointer;
+
+    &:hover {
+      img {
+        background-color: #ffffff;
+      }
+    }
+
     img {
       border-radius: 100%;
       background-color: #d2d2d2;
@@ -78,6 +86,11 @@ export default {
           rgba(0,229,255,1) 100%
         );
       }
+    }
+
+    .vm-voice-image {
+      display: inline-block;
+      position: relative;
     }
   }
 </style>

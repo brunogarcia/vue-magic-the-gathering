@@ -1,7 +1,15 @@
 <template>
   <v-container v-if="show">
-    <VoicesTitle text="Favourite Voices" />
-    <Voices :voices="voices()" />
+    <v-row>
+      <v-col
+        cols="12"
+        xl="8"
+        offset-xl="2"
+      >
+        <VoicesTitle text="Favourite Voices" />
+        <Voices :voices="voices()" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
