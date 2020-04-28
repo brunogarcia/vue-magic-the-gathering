@@ -44,8 +44,8 @@ export default {
 
   methods: {
     onClickVoice() {
-      console.log('selected');
       this.selectedVoice = !this.selectedVoice;
+      // TODO: play the voice
     },
 
     onMouseOverVoice() {

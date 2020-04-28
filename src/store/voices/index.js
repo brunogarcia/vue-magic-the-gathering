@@ -68,11 +68,19 @@ export default {
   },
   getters: {
     /**
-     * Voices
+     * Get all the voices
      *
      * @param {object} state - The state of the module
      * @returns {Array<object>} - The voices stored
      */
     voices: (state) => state.voices,
+
+    /**
+     * Get only the favourite voices
+     *
+     * @param {object} state - The state of the module
+     * @returns {Array<object>} - The Favourite voices stored
+     */
+    favouriteVoices: (state) => state.voices.filter((voice) => voice.favourite),
   },
 };

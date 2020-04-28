@@ -1,17 +1,15 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col
-        v-for="voice in voices"
-        :key="voice.id"
-        cols="6"
-        sm="3"
-        md="2"
-      >
-        <Voice :voice="voice" />
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row class="text-center">
+    <v-col
+      v-for="voice in voices"
+      :key="voice.id"
+      cols="6"
+      sm="3"
+      md="2"
+    >
+      <Voice :voice="voice" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>

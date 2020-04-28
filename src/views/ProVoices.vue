@@ -1,5 +1,8 @@
 <template>
-  <Voices :voices="voices()" />
+  <v-container>
+    <p>Pro Voices</p>
+    <Voices :voices="voices()" />
+  </v-container>
 </template>
 
 <script>
