@@ -1,7 +1,7 @@
 /**
  * Get the filtered voices
  *
- * @param {Array<object>} voices - The list of voices stored
+ * @param {Array<object>} voices - All of voices stored
  * @param {string} value - The value for filter the voices
  * @returns {Array<object>} - The list of voices filtered
  */

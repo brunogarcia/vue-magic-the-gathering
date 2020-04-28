@@ -2,14 +2,14 @@
   <v-app>
     <AppBar />
     <v-content v-if="!loading">
-      <FavouriteVoices />
+      <FavouriteVoices v-if="showFavourite" />
       <ProVoices />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import AppBar from '@/views/AppBar.vue';
 import ProVoices from '@/views/ProVoices.vue';
 import FavouriteVoices from '@/views/FavouriteVoices.vue';
@@ -29,6 +29,12 @@ export default {
 
   created() {
     this.loadData();
+  },
+
+  computed: {
+    ...mapGetters({
+      showFavourite: 'voices/showFavourite',
+    }),
   },
 
   methods: {

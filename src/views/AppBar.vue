@@ -4,11 +4,19 @@
     color="primary"
     dark
   >
-    <div class="d-flex align-center mt-5">
-      <Search />
-    </div>
-
-    <v-spacer />
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          xl="2"
+          offset-xl="2"
+        >
+          <div class="mt-5">
+            <Search />
+          </div>
+        </v-col>
+      </v-row>
+  </v-container>
   </v-app-bar>
 </template>
 

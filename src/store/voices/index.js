@@ -2,7 +2,7 @@ import api from '@/api';
 import types from './utils/types';
 import mapVoices from './utils/mapVoices';
 import getFilteredVoices from './utils/getFilteredVoices';
-import isValidFilterValue from './utils/isValidFilterValue';
+import validateFilterValue from './utils/validateFilterValue';
 
 const {
   SAVE_VOICES,
@@ -13,8 +13,11 @@ const {
 export default {
   namespaced: true,
   state: {
-    voices: [],
-    filtered: [],
+    searching: false,
+    all: [],
+    allFiltered: [],
+    favourite: [],
+    favouriteFiltered: [],
   },
   actions: {
     /**
@@ -63,7 +66,7 @@ export default {
      * @param {object} payload - The voices to store
      */
     [SAVE_VOICES](state, payload) {
-      state.voices = payload;
+      state.all = payload;
     },
 
     /**
@@ -73,11 +76,13 @@ export default {
      * @param {string} id - The voice id to update
      */
     [SAVE_FAVOURITE_VOICE](state, id) {
-      const { voices } = state;
-      const voiceIndex = voices.findIndex((voice) => voice.id === id);
+      const { all } = state;
+      const voiceIndex = all.findIndex((voice) => voice.id === id);
 
-      voices[voiceIndex].favourite = !voices[voiceIndex].favourite;
-      state.voices = voices;
+      all[voiceIndex].favourite = !all[voiceIndex].favourite;
+
+      state.all = all;
+      state.favourite = all.filter((voice) => voice.favourite);
     },
 
     /**
@@ -87,21 +92,39 @@ export default {
      * @param {string} value - The value for filter the voices
      */
     [FILTER_VOICES](state, value) {
-      const { voices } = state;
+      const { all, favourite } = state;
+      const isValidValue = validateFilterValue(value);
 
-      state.filtered = isValidFilterValue(value)
-        ? getFilteredVoices(voices, value)
-        : [];
+      // Apply searching mode
+      state.searching = isValidValue;
+
+      // Update all filtered list
+      state.allFiltered = !isValidValue
+        ? []
+        : getFilteredVoices(all, value);
+
+      // Update favourite filtered list
+      state.favouriteFiltered = !isValidValue
+        ? []
+        : getFilteredVoices(favourite, value);
     },
   },
   getters: {
+    /**
+     * Get searching mode
+     *
+     * @param {object} state - The state of the module
+     * @returns {boolean} - The searching mode
+     */
+    searching: (state) => state.searching,
+
     /**
      * Get all the voices
      *
      * @param {object} state - The state of the module
      * @returns {Array<object>} - The voices stored
      */
-    voices: (state) => state.voices,
+    all: (state) => state.all,
 
     /**
      * Get the filtered voices
@@ -109,14 +132,30 @@ export default {
      * @param {object} state - The state of the module
      * @returns {Array<object>} - The voices filtered
      */
-    filteredVoices: (state) => state.filtered,
+    allFiltered: (state) => state.allFiltered,
 
     /**
-     * Get only the favourite voices
+     * Show favourite voices
      *
      * @param {object} state - The state of the module
-     * @returns {Array<object>} - The favourite voices stored
+     * @returns {boolean} - The validation flag
      */
-    favouriteVoices: (state) => state.voices.filter((voice) => voice.favourite),
+    showFavourite: (state) => state.favourite.length > 0 || state.favouriteFiltered.length > 0,
+
+    /**
+     * Get the favourite voices
+     *
+     * @param {object} state - The state of the module
+     * @returns {Array<object>} - The favourite voices
+     */
+    favourite: (state) => state.favourite,
+
+    /**
+     * Get the favourite filtered voices
+     *
+     * @param {object} state - The state of the module
+     * @returns {Array<object>} - The favourite filtered voices
+     */
+    favouriteFiltered: (state) => state.favouriteFiltered,
   },
 };
