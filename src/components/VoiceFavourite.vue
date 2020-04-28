@@ -1,12 +1,17 @@
 <template>
-  <div class="vm-voice__favourite">
-    <VoiceFavouriteOn v-if="!favourite && mouseOver" />
-    <VoiceFavouriteOff v-if="favourite && mouseOver" />
+  <div
+    class="vm-voice-favourite"
+    @click.stop="onClickVoiceFavourite"
+  >
+    <VoiceFavouriteOn v-if="isFavourite" />
+    <VoiceFavouriteOff v-if="isNotFavouriteAndHasMouseOver" />
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import PropTypes from '@znck/prop-types';
+import types from '@/utils/types';
 import VoiceFavouriteOn from '@/assets/voice-favourite.svg';
 import VoiceFavouriteOff from '@/assets/voice-favourite-off.svg';
 
@@ -14,19 +19,39 @@ export default {
   name: 'VoiceFavourite',
 
   props: {
-    favourite: PropTypes.bool.isRequired,
-    mouseOver: PropTypes.bool.isRequired,
+    voice: types.voice,
+    mouseOver: PropTypes.bool,
   },
 
   components: {
     VoiceFavouriteOn,
     VoiceFavouriteOff,
   },
+
+  computed: {
+    isFavourite() {
+      return this.voice.favourite;
+    },
+
+    isNotFavouriteAndHasMouseOver() {
+      return !this.voice.favourite && this.mouseOver;
+    },
+  },
+
+  methods: {
+    ...mapActions({
+      saveFavouriteVoice: 'voices/saveFavouriteVoice',
+    }),
+
+    onClickVoiceFavourite() {
+      this.saveFavouriteVoice(this.voice.id);
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  .vm-voice__favourite {
+  .vm-voice-favourite {
     position: absolute;
     top: 0.6em;
     right: 1.6em;

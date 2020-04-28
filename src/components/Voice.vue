@@ -1,8 +1,10 @@
 <template>
   <div
     class="vm-voice"
-    @mouseover="onMouseOverVoiceFavourite"
-    @mouseleave="onMouseLeaveVoiceFavourite"
+    v-bind:class="{ 'vm-voice__selected': selectedVoice }"
+    @click="onClickVoice"
+    @mouseover="onMouseOverVoice"
+    @mouseleave="onMouseLeaveVoice"
   >
     <img
       :alt="voice.name"
@@ -14,8 +16,8 @@
     </p>
 
     <VoiceFavourite
-      :favourite="false"
-      :mouseOver="mouseOverVoiceFavourite"
+      :voice="voice"
+      :mouseOver="mouseOverVoice"
     />
   </div>
 </template>
@@ -36,16 +38,22 @@ export default {
   },
 
   data: () => ({
-    mouseOverVoiceFavourite: false,
+    mouseOverVoice: false,
+    selectedVoice: false,
   }),
 
   methods: {
-    onMouseOverVoiceFavourite() {
-      this.mouseOverVoiceFavourite = true;
+    onClickVoice() {
+      console.log('selected');
+      this.selectedVoice = !this.selectedVoice;
     },
 
-    onMouseLeaveVoiceFavourite() {
-      this.mouseOverVoiceFavourite = false;
+    onMouseOverVoice() {
+      this.mouseOverVoice = true;
+    },
+
+    onMouseLeaveVoice() {
+      this.mouseOverVoice = false;
     },
   },
 };
@@ -58,6 +66,18 @@ export default {
     img {
       border-radius: 100%;
       background-color: #d2d2d2;
+    }
+
+    &.vm-voice__selected {
+      img {
+        background: rgb(0,197,255);
+        background: linear-gradient(
+          90deg,
+          rgba(0,197,255,1) 0%,
+          rgba(0,212,255,1) 50%,
+          rgba(0,229,255,1) 100%
+        );
+      }
     }
   }
 </style>

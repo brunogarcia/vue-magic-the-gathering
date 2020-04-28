@@ -1,7 +1,11 @@
 import api from '@/api';
-import types from './types';
+import types from './utils/types';
+import mapVoices from './utils/mapVoices';
 
-const { SAVE_VOICES } = types;
+const {
+  SAVE_VOICES,
+  SAVE_FAVOURITE_VOICE,
+} = types;
 
 export default {
   namespaced: true,
@@ -18,11 +22,22 @@ export default {
     async getVoices({ commit }) {
       try {
         const data = await api.fecthVoices();
-        commit(SAVE_VOICES, data);
+        commit(SAVE_VOICES, mapVoices(data));
         return true;
       } catch (error) {
         return error;
       }
+    },
+
+    /**
+     * Save favourite voice
+     *
+     * @param {object} context - Vuex context
+     * @param {Function} context.commit - Vuex commit
+     * @param {string} id - The voice id to update
+     */
+    saveFavouriteVoice({ commit }, id) {
+      commit(SAVE_FAVOURITE_VOICE, id);
     },
   },
   mutations: {
@@ -34,6 +49,21 @@ export default {
      */
     [SAVE_VOICES](state, payload) {
       state.voices = payload;
+    },
+
+    /**
+     * Save favourite voice
+     *
+     * @param {object} state - Vuex state
+     * @param {string} id - The voice id to update
+     */
+    [SAVE_FAVOURITE_VOICE](state, id) {
+      const { voices } = state;
+      const voiceIndex = voices.findIndex((voice) => voice.id === id);
+
+      voices[voiceIndex].favourite = !voices[voiceIndex].favourite;
+
+      state.voices = voices;
     },
   },
   getters: {
