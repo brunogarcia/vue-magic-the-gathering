@@ -30,7 +30,7 @@ export default {
 
   computed: {
     isFavourite() {
-      return this.voice.favourite;
+      return this.voice.favourite && this.mouseOver;
     },
 
     isNotFavouriteAndHasMouseOver() {
