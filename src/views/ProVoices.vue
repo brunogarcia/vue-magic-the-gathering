@@ -40,7 +40,7 @@ export default {
     }),
 
     messageAlert() {
-      return `No pro voice found on the ${this.tag} tag`;
+      return `No pro voice found on the ${this.tag} category`;
     },
 
     showAlert() {

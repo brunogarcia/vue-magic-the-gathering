@@ -1,17 +1,17 @@
 <template>
   <v-select
-    v-model="tag"
+    v-model="sort"
     :items="items"
     solo
     dense
     single-line
     hide-details
     menu-props="auto"
-    label="Filter by tag"
+    label="Sort voices"
     @input="onSelectItem"
   >
     <template v-slot:prepend>
-      <FilterIcon />
+      <OrderIcon />
     </template>
 
     <template v-slot:append>
@@ -20,49 +20,44 @@
 
     <template v-slot:item="{ item }">
       <span class="white--text text-capitalize">{{ item }}</span>
-    </template>
 
-    <template v-slot:selection="{ item }">
+    </template>
+        <template v-slot:selection="{ item }">
       <span class="white--text text-capitalize">{{ item }}</span>
     </template>
   </v-select>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import constants from '@/utils/constants';
-import FilterIcon from '@/assets/filter.svg';
+import OrderIcon from '@/assets/order.svg';
 import SelectArrowIcon from '@/assets/select-arrow.svg';
 
-const { TAGS } = constants;
+const { SORT } = constants;
 
 export default {
-  name: 'TagFilter',
+  name: 'SortFilter',
 
   data: () => ({
-    tag: TAGS.ALL,
+    sort: SORT.ASC,
+    items: [SORT.ASC, SORT.DESC],
   }),
 
   components: {
-    FilterIcon,
+    OrderIcon,
     SelectArrowIcon,
-  },
-
-  computed: {
-    ...mapGetters({
-      items: 'voices/tags',
-    }),
   },
 
   methods: {
     ...mapActions({
-      saveTag: 'voices/saveTag',
-      filterVoicesByTag: 'voices/filterVoicesByTag',
+      saveSort: 'voices/saveSort',
+      sortVoices: 'voices/sortVoices',
     }),
 
     onSelectItem() {
-      this.saveTag(this.tag);
-      this.filterVoicesByTag();
+      this.saveSort(this.sort);
+      this.sortVoices();
     },
   },
 };

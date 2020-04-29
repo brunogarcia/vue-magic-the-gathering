@@ -19,6 +19,12 @@
         >
           <TagFilter />
         </v-col>
+        <v-col
+          cols="12"
+          xl="2"
+        >
+          <SortFilter />
+        </v-col>
       </v-row>
   </v-container>
   </v-app-bar>
@@ -27,6 +33,7 @@
 <script>
 import Search from '@/components/Search.vue';
 import TagFilter from '@/components/TagFilter.vue';
+import SortFilter from '@/components/SortFilter.vue';
 
 export default {
   name: 'AppBar',
@@ -34,6 +41,7 @@ export default {
   components: {
     Search,
     TagFilter,
+    SortFilter,
   },
 };
 </script>

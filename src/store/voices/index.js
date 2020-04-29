@@ -6,11 +6,12 @@ import mapVoices from '@/store/voices/utils/mapVoices';
 import checkSearchValue from '@/store/voices/utils/checkSearchValue';
 import getFilteredVoices from '@/store/voices/utils/getFilteredVoices';
 
-const { TAGS } = constants;
+const { SORT, TAGS } = constants;
 
 const {
   RESET_STATE,
 
+  SAVE_SORT,
   SAVE_SEARCH,
   SAVE_TAG,
   SAVE_TAGS,
@@ -18,6 +19,7 @@ const {
   SAVE_FAVOURITE_VOICES,
 
   FILTER_VOICES,
+  SORT_VOICES,
 
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
@@ -26,6 +28,7 @@ const {
 export default {
   namespaced: true,
   state: {
+    sort: SORT.ASC,
     tag: TAGS.ALL,
     tags: [],
     search: null,
@@ -81,6 +84,27 @@ export default {
     },
 
     /**
+     * Save sort
+     *
+     * @param {object} context - Vuex context
+     * @param {Function} context.commit - Vuex commit
+     * @param {string} value - The value to store
+     */
+    saveSort({ commit }, value) {
+      commit(SAVE_SORT, value);
+    },
+
+    /**
+     * Sort voices
+     *
+     * @param {object} context - Vuex context
+     * @param {Function} context.commit - Vuex commit
+     */
+    sortVoices({ commit }) {
+      commit(SORT_VOICES);
+    },
+
+    /**
      * Filter voices by name
      *
      * @param {object} context - Vuex context
@@ -110,10 +134,10 @@ export default {
      *
      * @param {object} context - Vuex context
      * @param {Function} context.commit - Vuex commit
-     * @param {string} tag - The tag to store
+     * @param {string} value - The value to store
      */
-    saveTag({ commit }, tag) {
-      commit(SAVE_TAG, tag);
+    saveTag({ commit }, value) {
+      commit(SAVE_TAG, value);
     },
 
     /**
@@ -133,6 +157,16 @@ export default {
   },
   mutations: {
     /**
+     * Save sort value
+     *
+     * @param {object} state - Vuex state
+     * @param {string} value - The value to store
+     */
+    [SAVE_SORT](state, value) {
+      state.sort = value;
+    },
+
+    /**
      * Save seach value
      *
      * @param {object} state - Vuex state
@@ -143,13 +177,13 @@ export default {
     },
 
     /**
-     * Save tag
+     * Save tag value
      *
      * @param {object} state - Vuex state
-     * @param {string} tag - The tag to store
+     * @param {string} value - The value to store
      */
-    [SAVE_TAG](state, tag) {
-      state.tag = tag;
+    [SAVE_TAG](state, value) {
+      state.tag = value;
     },
 
     /**
@@ -228,6 +262,17 @@ export default {
       state.all = getFilteredVoices({ voices: allCache, search, tag });
       state.favourite = getFilteredVoices({ voices: favouriteCache, search, tag });
     },
+
+    /**
+     * Sort voices
+     *
+     * @param {object} state - Vuex state
+     */
+    [SORT_VOICES](state) {
+      // TODO
+      console.log(state.sort);
+    },
+
 
     /**
      * Reset state
