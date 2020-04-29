@@ -12,7 +12,6 @@ const {
   SAVE_FAVOURITE_VOICES,
 
   FILTER_VOICES,
-  SORT_VOICES,
 
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
@@ -110,32 +109,26 @@ export default {
   },
 
   /**
-   * Filter voices by tag and name
+   * Filter and sort the voices by tag and search value
    *
    * @param {object} state - Module state
    */
   [FILTER_VOICES](state) {
     const {
       tag,
+      sort,
       search,
       allCache,
       favouriteCache,
     } = state;
 
-    state.all = getFilteredVoices({ voices: allCache, search, tag });
-    state.favourite = getFilteredVoices({ voices: favouriteCache, search, tag });
-  },
+    const options = { search, tag, sortType: sort };
+    const optionsAll = { ...options, voices: allCache };
+    const optionsFavourite = { ...options, voices: favouriteCache };
 
-  /**
-   * Sort voices
-   *
-   * @param {object} state - Module state
-   */
-  [SORT_VOICES](state) {
-    // TODO
-    console.log(state.sort);
+    state.all = getFilteredVoices(optionsAll);
+    state.favourite = getFilteredVoices(optionsFavourite);
   },
-
 
   /**
    * Reset state

@@ -18,7 +18,6 @@ const {
   SAVE_FAVOURITE_VOICES,
 
   FILTER_VOICES,
-  SORT_VOICES,
 
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
@@ -87,7 +86,7 @@ export default {
    * @param {Function} context.commit - Vuex commit
    */
   sortVoices({ commit }) {
-    commit(SORT_VOICES);
+    commit(FILTER_VOICES);
   },
 
   /**
