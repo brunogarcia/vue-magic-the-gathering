@@ -40,11 +40,11 @@ export default {
 
   methods: {
     ...mapActions({
-      saveFavouriteVoice: 'voices/saveFavouriteVoice',
+      toggleFavouriteVoice: 'voices/toggleFavouriteVoice',
     }),
 
     onClickVoiceFavourite() {
-      this.saveFavouriteVoice(this.voice.id);
+      this.toggleFavouriteVoice(this.voice.id);
     },
   },
 };

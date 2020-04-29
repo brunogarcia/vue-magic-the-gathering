@@ -7,7 +7,8 @@ import validateFilterValue from './utils/validateFilterValue';
 const {
   SAVE_VOICES,
   FILTER_VOICES,
-  SAVE_FAVOURITE_VOICE,
+  TOGGLE_SEARCH_MODE,
+  TOGGLE_FAVOURITE_VOICE,
 } = types;
 
 export default {
@@ -37,14 +38,14 @@ export default {
     },
 
     /**
-     * Save favourite voice
+     * Toggle favourite voice
      *
      * @param {object} context - Vuex context
      * @param {Function} context.commit - Vuex commit
-     * @param {string} id - The voice id to update
+     * @param {string} id - The voice id
      */
-    saveFavouriteVoice({ commit }, id) {
-      commit(SAVE_FAVOURITE_VOICE, id);
+    toggleFavouriteVoice({ commit }, id) {
+      commit(TOGGLE_FAVOURITE_VOICE, id);
     },
 
     /**
@@ -55,7 +56,10 @@ export default {
      * @param {string} value - The value for filter the voices
      */
     filterVoices({ commit }, value) {
-      commit(FILTER_VOICES, value);
+      const isValidValue = validateFilterValue(value);
+
+      commit(TOGGLE_SEARCH_MODE, isValidValue);
+      commit(FILTER_VOICES, { value, isValidValue });
     },
   },
   mutations: {
@@ -70,40 +74,54 @@ export default {
     },
 
     /**
-     * Save favourite voice
+     * Toggle favourite voice
      *
      * @param {object} state - Vuex state
-     * @param {string} id - The voice id to update
+     * @param {string} id - The voice id
      */
-    [SAVE_FAVOURITE_VOICE](state, id) {
+    [TOGGLE_FAVOURITE_VOICE](state, id) {
       const { all } = state;
+
+      // Find the index of the voice
       const voiceIndex = all.findIndex((voice) => voice.id === id);
 
+      // Update the voice
       all[voiceIndex].favourite = !all[voiceIndex].favourite;
 
+      // Update the voices list
       state.all = all;
+
+      // Update the favourite voices list
       state.favourite = all.filter((voice) => voice.favourite);
+    },
+
+    /**
+     * Toggle search mode
+     *
+     * @param {object} state - Vuex state
+     * @param {boolean} isValidValue - Flag for checking if the value is valid
+     */
+    [TOGGLE_SEARCH_MODE](state, isValidValue) {
+      state.searching = isValidValue;
     },
 
     /**
      * Filter voices
      *
      * @param {object} state - Vuex state
-     * @param {string} value - The value for filter the voices
+     * @param {object} payload - The payload
+     * @param {string} payload.value - The value for filter the voices
+     * @param {boolean} payload.isValidValue - Flag for checking if the value is valid
      */
-    [FILTER_VOICES](state, value) {
+    [FILTER_VOICES](state, { value, isValidValue }) {
       const { all, favourite } = state;
-      const isValidValue = validateFilterValue(value);
 
-      // Apply searching mode
-      state.searching = isValidValue;
-
-      // Update all filtered list
+      // Update the all filtered list
       state.allFiltered = !isValidValue
         ? []
         : getFilteredVoices(all, value);
 
-      // Update favourite filtered list
+      // Update the favourite filtered list
       state.favouriteFiltered = !isValidValue
         ? []
         : getFilteredVoices(favourite, value);
@@ -111,7 +129,7 @@ export default {
   },
   getters: {
     /**
-     * Get searching mode
+     * Get search mode
      *
      * @param {object} state - The state of the module
      * @returns {boolean} - The searching mode
@@ -135,14 +153,6 @@ export default {
     allFiltered: (state) => state.allFiltered,
 
     /**
-     * Show favourite voices
-     *
-     * @param {object} state - The state of the module
-     * @returns {boolean} - The validation flag
-     */
-    showFavourite: (state) => state.favourite.length > 0 || state.favouriteFiltered.length > 0,
-
-    /**
      * Get the favourite voices
      *
      * @param {object} state - The state of the module
@@ -157,5 +167,13 @@ export default {
      * @returns {Array<object>} - The favourite filtered voices
      */
     favouriteFiltered: (state) => state.favouriteFiltered,
+
+    /**
+     * Show favourite voices
+     *
+     * @param {object} state - The state of the module
+     * @returns {boolean} - The validation flag
+     */
+    showFavourite: (state) => state.favourite.length > 0 || state.favouriteFiltered.length > 0,
   },
 };
