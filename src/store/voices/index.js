@@ -11,8 +11,12 @@ const { FILTERS } = constants;
 const {
   SAVE_TAGS,
   SAVE_VOICES,
+  SAVE_VOICES_CACHE,
+  SAVE_FAVOURITE_VOICES,
+
   FILTER_VOICES_BY_TAG,
   FILTER_VOICES_BY_NAME,
+
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
 } = types;
@@ -38,9 +42,12 @@ export default {
     async getVoices({ commit }) {
       try {
         const data = await api.fecthVoices();
+        const tags = mapTags(data);
+        const voices = mapVoices(data);
 
-        commit(SAVE_TAGS, mapTags(data));
-        commit(SAVE_VOICES, mapVoices(data));
+        commit(SAVE_TAGS, tags);
+        commit(SAVE_VOICES, voices);
+        commit(SAVE_VOICES_CACHE, voices);
         return true;
       } catch (error) {
         return error;
@@ -56,6 +63,7 @@ export default {
      */
     toggleFavouriteVoice({ commit }, id) {
       commit(TOGGLE_FAVOURITE_VOICE, id);
+      commit(SAVE_FAVOURITE_VOICES);
     },
 
     /**
@@ -92,6 +100,15 @@ export default {
      */
     [SAVE_VOICES](state, voices) {
       state.all = voices;
+    },
+
+    /**
+     * Save the cache of voices
+     *
+     * @param {object} state - Vuex state
+     * @param {object} voices - The voices to store
+     */
+    [SAVE_VOICES_CACHE](state, voices) {
       state.cache = voices;
     },
 
@@ -106,25 +123,30 @@ export default {
     },
 
     /**
+     * Save favourite voices
+     *
+     * @param {object} state - Vuex state
+     */
+    [SAVE_FAVOURITE_VOICES](state) {
+      state.favourite = state.all.filter((voice) => voice.favourite);
+    },
+
+    /**
      * Toggle favourite voice
      *
      * @param {object} state - Vuex state
      * @param {string} id - The voice id
      */
     [TOGGLE_FAVOURITE_VOICE](state, id) {
-      const { all } = state;
+      const temp = [...state.all];
 
       // Find the index of the voice
-      const voiceIndex = all.findIndex((voice) => voice.id === id);
+      const voiceIndex = temp.findIndex((voice) => voice.id === id);
 
       // Update the voice
-      all[voiceIndex].favourite = !all[voiceIndex].favourite;
+      temp[voiceIndex].favourite = !temp[voiceIndex].favourite;
 
-      // Update the voices list
-      state.all = all;
-
-      // Update the favourite voices list
-      state.favourite = all.filter((voice) => voice.favourite);
+      state.all = temp;
     },
 
     /**
