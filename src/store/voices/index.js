@@ -1,10 +1,12 @@
 import api from '@/api';
 import types from './utils/types';
+import mapTags from './utils/mapTags';
 import mapVoices from './utils/mapVoices';
 import getFilteredVoices from './utils/getFilteredVoices';
 import validateFilterValue from './utils/validateFilterValue';
 
 const {
+  SAVE_TAGS,
   SAVE_VOICES,
   FILTER_VOICES,
   TOGGLE_SEARCH_MODE,
@@ -14,6 +16,7 @@ const {
 export default {
   namespaced: true,
   state: {
+    tags: [],
     searching: false,
     all: [],
     allFiltered: [],
@@ -30,6 +33,8 @@ export default {
     async getVoices({ commit }) {
       try {
         const data = await api.fecthVoices();
+
+        commit(SAVE_TAGS, mapTags(data));
         commit(SAVE_VOICES, mapVoices(data));
         return true;
       } catch (error) {
@@ -67,10 +72,20 @@ export default {
      * Save voices
      *
      * @param {object} state - Vuex state
-     * @param {object} payload - The voices to store
+     * @param {object} voices - The voices to store
      */
-    [SAVE_VOICES](state, payload) {
-      state.all = payload;
+    [SAVE_VOICES](state, voices) {
+      state.all = voices;
+    },
+
+    /**
+     * Save tags
+     *
+     * @param {object} state - Vuex state
+     * @param {Array<string>} tags - The tags to store
+     */
+    [SAVE_TAGS](state, tags) {
+      state.tags = tags;
     },
 
     /**
