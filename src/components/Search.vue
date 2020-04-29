@@ -19,21 +19,23 @@ import SearchIcon from '@/assets/search.svg';
 export default {
   name: 'Search',
 
-  data: () => ({
-    value: '',
-  }),
-
   components: {
     SearchIcon,
   },
 
+  data: () => ({
+    value: '',
+  }),
+
   methods: {
     ...mapActions({
+      saveSearch: 'voices/saveSearch',
       filterVoicesByName: 'voices/filterVoicesByName',
     }),
 
     onChangeValue() {
-      this.filterVoicesByName(this.value);
+      this.saveSearch(this.value);
+      this.filterVoicesByName();
     },
   },
 };

@@ -48,11 +48,13 @@ export default {
 
   methods: {
     ...mapActions({
+      saveTag: 'voices/saveTag',
       filterVoicesByTag: 'voices/filterVoicesByTag',
     }),
 
     onSelectTag() {
-      this.filterVoicesByTag(this.tag);
+      this.saveTag(this.tag);
+      this.filterVoicesByTag();
     },
   },
 };

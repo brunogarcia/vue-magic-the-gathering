@@ -10,7 +10,7 @@
         <Voices :voices="favourite" />
         <Alert
           v-if="showAlert"
-          message="No favourite voice found"
+          :message="messageAlert"
         />
       </v-col>
     </v-row>
@@ -34,9 +34,14 @@ export default {
 
   computed: {
     ...mapGetters({
+      tag: 'voices/tag',
       favourite: 'voices/favourite',
       searching: 'voices/searching',
     }),
+
+    messageAlert() {
+      return `No favourite voice found on the ${this.tag} tag`;
+    },
 
     showAlert() {
       return this.searching && this.favourite.length === 0;

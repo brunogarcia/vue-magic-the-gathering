@@ -10,7 +10,7 @@
         <Voices :voices="all" />
         <Alert
           v-if="showAlert"
-          message="No pro voice found"
+          :message="messageAlert"
         />
       </v-col>
     </v-row>
@@ -34,9 +34,14 @@ export default {
 
   computed: {
     ...mapGetters({
+      tag: 'voices/tag',
       all: 'voices/all',
       searching: 'voices/searching',
     }),
+
+    messageAlert() {
+      return `No pro voice found on the ${this.tag} tag`;
+    },
 
     showAlert() {
       return this.searching && this.all.length === 0;
