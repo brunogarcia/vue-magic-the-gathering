@@ -10,8 +10,7 @@ const { FILTERS } = constants;
 
 const {
   SAVE_TAGS,
-  SAVE_VOICES,
-  SAVE_VOICES_CACHE,
+  SAVE_ALL_VOICES,
   SAVE_FAVOURITE_VOICES,
 
   FILTER_VOICES_BY_TAG,
@@ -26,10 +25,15 @@ export default {
   state: {
     tags: [],
     searching: false,
+
+    // All voices
     all: [],
-    cache: [],
+    allCache: [],
     allFiltered: [],
+
+    // Favourite voices
     favourite: [],
+    favouriteCache: [],
     favouriteFiltered: [],
   },
   actions: {
@@ -46,8 +50,8 @@ export default {
         const voices = mapVoices(data);
 
         commit(SAVE_TAGS, tags);
-        commit(SAVE_VOICES, voices);
-        commit(SAVE_VOICES_CACHE, voices);
+        commit(SAVE_ALL_VOICES, voices);
+
         return true;
       } catch (error) {
         return error;
@@ -93,26 +97,6 @@ export default {
   },
   mutations: {
     /**
-     * Save voices
-     *
-     * @param {object} state - Vuex state
-     * @param {object} voices - The voices to store
-     */
-    [SAVE_VOICES](state, voices) {
-      state.all = voices;
-    },
-
-    /**
-     * Save the cache of voices
-     *
-     * @param {object} state - Vuex state
-     * @param {object} voices - The voices to store
-     */
-    [SAVE_VOICES_CACHE](state, voices) {
-      state.cache = voices;
-    },
-
-    /**
      * Save tags
      *
      * @param {object} state - Vuex state
@@ -123,12 +107,25 @@ export default {
     },
 
     /**
+     * Save voices
+     *
+     * @param {object} state - Vuex state
+     * @param {object} voices - The voices to store
+     */
+    [SAVE_ALL_VOICES](state, voices) {
+      state.all = voices;
+      state.allCache = voices;
+    },
+
+    /**
      * Save favourite voices
      *
      * @param {object} state - Vuex state
      */
     [SAVE_FAVOURITE_VOICES](state) {
-      state.favourite = state.all.filter((voice) => voice.favourite);
+      const voices = state.all.filter((voice) => voice.favourite);
+      state.favourite = voices;
+      state.favouriteCache = voices;
     },
 
     /**
@@ -188,12 +185,14 @@ export default {
      * @param {string} tag - The tag for filter the voices
      */
     [FILTER_VOICES_BY_TAG](state, tag) {
-      const { cache } = state;
+      const { allCache, favouriteCache } = state;
 
       if (tag === FILTERS.ALL) {
-        state.all = cache;
+        state.all = allCache;
+        state.favourite = favouriteCache;
       } else {
-        state.all = cache.filter((item) => item.tags.includes(tag));
+        state.all = allCache.filter((item) => item.tags.includes(tag));
+        state.favourite = favouriteCache.filter((item) => item.tags.includes(tag));
       }
     },
   },
