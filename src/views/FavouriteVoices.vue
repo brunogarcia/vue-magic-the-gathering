@@ -7,7 +7,7 @@
         offset-xl="2"
       >
         <VoicesTitle text="Favourite Voices" />
-        <Voices :voices="getVoices()" />
+        <Voices :voices="favourite" />
         <Alert
           v-if="showAlert"
           message="No favourite voice found"
@@ -36,19 +36,10 @@ export default {
     ...mapGetters({
       favourite: 'voices/favourite',
       searching: 'voices/searching',
-      favouriteFiltered: 'voices/favouriteFiltered',
     }),
 
     showAlert() {
-      return this.searching && this.favouriteFiltered.length === 0;
-    },
-  },
-
-  methods: {
-    getVoices() {
-      return this.searching
-        ? this.favouriteFiltered
-        : this.favourite;
+      return this.searching && this.favourite.length === 0;
     },
   },
 };

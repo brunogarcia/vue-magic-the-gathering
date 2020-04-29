@@ -1,6 +1,6 @@
 import constants from '@/utils/constants';
 
-const { FILTERS } = constants;
+const { TAGS } = constants;
 
 /**
  * Map tags before stored them
@@ -14,6 +14,6 @@ export default function mapTags(voices) {
     .reduce((accumulator, tags) => {
       const tag = tags.filter((item) => !accumulator.includes(item));
       return [...accumulator, ...tag];
-    }, [FILTERS.ALL])
+    }, [TAGS.ALL])
     .sort();
 }

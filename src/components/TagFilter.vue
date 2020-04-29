@@ -27,13 +27,13 @@ import { mapActions, mapGetters } from 'vuex';
 import constants from '@/utils/constants';
 import FilterIcon from '@/assets/filter.svg';
 
-const { FILTERS } = constants;
+const { TAGS } = constants;
 
 export default {
   name: 'TagFilter',
 
   data: () => ({
-    tag: FILTERS.ALL,
+    tag: TAGS.ALL,
   }),
 
   components: {

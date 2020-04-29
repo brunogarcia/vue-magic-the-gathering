@@ -1,5 +1,5 @@
 export default {
-  FILTERS: {
+  TAGS: {
     ALL: 'all',
   },
 };

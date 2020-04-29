@@ -1,11 +1,11 @@
 /**
- * Get the filtered voices
+ * Get the filtered voices by name
  *
  * @param {Array<object>} voices - The list of voices
  * @param {string} value - The value for filter the voices
  * @returns {Array<object>} - The list of voices filtered
  */
-export default function getFilteredVoices(voices, value) {
+export default function getFilteredVoicesByName(voices, value) {
   return voices.filter((voice) => {
     const voiceName = voice.name.toLowerCase();
     const filterValue = value.toLowerCase();

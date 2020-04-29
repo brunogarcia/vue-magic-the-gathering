@@ -7,7 +7,7 @@
         offset-xl="2"
       >
         <VoicesTitle text="Pro Voices" />
-        <Voices :voices="getVoices()" />
+        <Voices :voices="all" />
         <Alert
           v-if="showAlert"
           message="No pro voice found"
@@ -36,19 +36,10 @@ export default {
     ...mapGetters({
       all: 'voices/all',
       searching: 'voices/searching',
-      allFiltered: 'voices/allFiltered',
     }),
 
     showAlert() {
-      return this.searching && this.allFiltered.length === 0;
-    },
-  },
-
-  methods: {
-    getVoices() {
-      return this.searching
-        ? this.allFiltered
-        : this.all;
+      return this.searching && this.all.length === 0;
     },
   },
 };

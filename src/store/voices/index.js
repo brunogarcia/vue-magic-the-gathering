@@ -3,10 +3,11 @@ import constants from '@/utils/constants';
 import types from '@/store/voices/utils/types';
 import mapTags from '@/store/voices/utils/mapTags';
 import mapVoices from '@/store/voices/utils/mapVoices';
-import getFilteredVoices from '@/store/voices/utils/getFilteredVoices';
 import validateFilterValue from '@/store/voices/utils/validateFilterValue';
+import getFilteredVoicesByTag from '@/store/voices/utils/getFilteredVoicesByTag';
+import getFilteredVoicesByName from '@/store/voices/utils/getFilteredVoicesByName';
 
-const { FILTERS } = constants;
+const { TAGS } = constants;
 
 const {
   SAVE_TAGS,
@@ -25,16 +26,10 @@ export default {
   state: {
     tags: [],
     searching: false,
-
-    // All voices
     all: [],
     allCache: [],
-    allFiltered: [],
-
-    // Favourite voices
     favourite: [],
     favouriteCache: [],
-    favouriteFiltered: [],
   },
   actions: {
     /**
@@ -165,17 +160,15 @@ export default {
      * @param {boolean} payload.isValidValue - Flag for checking if the value is valid
      */
     [FILTER_VOICES_BY_NAME](state, { value, isValidValue }) {
-      const { all, favourite } = state;
+      const { allCache, favouriteCache } = state;
 
-      // Update the all filtered list
-      state.allFiltered = !isValidValue
-        ? []
-        : getFilteredVoices(all, value);
-
-      // Update the favourite filtered list
-      state.favouriteFiltered = !isValidValue
-        ? []
-        : getFilteredVoices(favourite, value);
+      if (isValidValue) {
+        state.all = getFilteredVoicesByName(allCache, value);
+        state.favourite = getFilteredVoicesByName(favouriteCache, value);
+      } else {
+        state.all = allCache;
+        state.favourite = favouriteCache;
+      }
     },
 
     /**
@@ -187,12 +180,12 @@ export default {
     [FILTER_VOICES_BY_TAG](state, tag) {
       const { allCache, favouriteCache } = state;
 
-      if (tag === FILTERS.ALL) {
+      if (tag === TAGS.ALL) {
         state.all = allCache;
         state.favourite = favouriteCache;
       } else {
-        state.all = allCache.filter((item) => item.tags.includes(tag));
-        state.favourite = favouriteCache.filter((item) => item.tags.includes(tag));
+        state.all = getFilteredVoicesByTag(allCache, tag);
+        state.favourite = getFilteredVoicesByTag(favouriteCache, tag);
       }
     },
   },
@@ -222,14 +215,6 @@ export default {
     all: (state) => state.all,
 
     /**
-     * Get the filtered voices
-     *
-     * @param {object} state - The state of the module
-     * @returns {Array<object>} - The voices filtered
-     */
-    allFiltered: (state) => state.allFiltered,
-
-    /**
      * Get the favourite voices
      *
      * @param {object} state - The state of the module
@@ -238,19 +223,11 @@ export default {
     favourite: (state) => state.favourite,
 
     /**
-     * Get the favourite filtered voices
-     *
-     * @param {object} state - The state of the module
-     * @returns {Array<object>} - The favourite filtered voices
-     */
-    favouriteFiltered: (state) => state.favouriteFiltered,
-
-    /**
      * Show favourite voices
      *
      * @param {object} state - The state of the module
      * @returns {boolean} - The validation flag
      */
-    showFavourite: (state) => state.favourite.length > 0 || state.favouriteFiltered.length > 0,
+    showFavourite: (state) => state.favourite.length > 0,
   },
 };
