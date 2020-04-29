@@ -1,14 +1,18 @@
 import api from '@/api';
-import types from './utils/types';
-import mapTags from './utils/mapTags';
-import mapVoices from './utils/mapVoices';
-import getFilteredVoices from './utils/getFilteredVoices';
-import validateFilterValue from './utils/validateFilterValue';
+import constants from '@/utils/constants';
+import types from '@/store/voices/utils/types';
+import mapTags from '@/store/voices/utils/mapTags';
+import mapVoices from '@/store/voices/utils/mapVoices';
+import getFilteredVoices from '@/store/voices/utils/getFilteredVoices';
+import validateFilterValue from '@/store/voices/utils/validateFilterValue';
+
+const { FILTERS } = constants;
 
 const {
   SAVE_TAGS,
   SAVE_VOICES,
-  FILTER_VOICES,
+  FILTER_VOICES_BY_TAG,
+  FILTER_VOICES_BY_NAME,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
 } = types;
@@ -19,6 +23,7 @@ export default {
     tags: [],
     searching: false,
     all: [],
+    cache: [],
     allFiltered: [],
     favourite: [],
     favouriteFiltered: [],
@@ -54,17 +59,28 @@ export default {
     },
 
     /**
-     * Filter voices
+     * Filter voices by name
      *
      * @param {object} context - Vuex context
      * @param {Function} context.commit - Vuex commit
      * @param {string} value - The value for filter the voices
      */
-    filterVoices({ commit }, value) {
+    filterVoicesByName({ commit }, value) {
       const isValidValue = validateFilterValue(value);
 
       commit(TOGGLE_SEARCH_MODE, isValidValue);
-      commit(FILTER_VOICES, { value, isValidValue });
+      commit(FILTER_VOICES_BY_NAME, { value, isValidValue });
+    },
+
+    /**
+     * Filter voices by tag
+     *
+     * @param {object} context - Vuex context
+     * @param {Function} context.commit - Vuex commit
+     * @param {string} tag - The tag for filter the voices
+     */
+    filterVoicesByTag({ commit }, tag) {
+      commit(FILTER_VOICES_BY_TAG, tag);
     },
   },
   mutations: {
@@ -76,6 +92,7 @@ export default {
      */
     [SAVE_VOICES](state, voices) {
       state.all = voices;
+      state.cache = voices;
     },
 
     /**
@@ -121,14 +138,14 @@ export default {
     },
 
     /**
-     * Filter voices
+     * Filter voices by name
      *
      * @param {object} state - Vuex state
      * @param {object} payload - The payload
      * @param {string} payload.value - The value for filter the voices
      * @param {boolean} payload.isValidValue - Flag for checking if the value is valid
      */
-    [FILTER_VOICES](state, { value, isValidValue }) {
+    [FILTER_VOICES_BY_NAME](state, { value, isValidValue }) {
       const { all, favourite } = state;
 
       // Update the all filtered list
@@ -141,6 +158,22 @@ export default {
         ? []
         : getFilteredVoices(favourite, value);
     },
+
+    /**
+     * Filter voices by tag
+     *
+     * @param {object} state - Vuex state
+     * @param {string} tag - The tag for filter the voices
+     */
+    [FILTER_VOICES_BY_TAG](state, tag) {
+      const { cache } = state;
+
+      if (tag === FILTERS.ALL) {
+        state.all = cache;
+      } else {
+        state.all = cache.filter((item) => item.tags.includes(tag));
+      }
+    },
   },
   getters: {
     /**
@@ -150,6 +183,14 @@ export default {
      * @returns {boolean} - The searching mode
      */
     searching: (state) => state.searching,
+
+    /**
+     * Get the tags
+     *
+     * @param {object} state - The state of the module
+     * @returns {Array<string>} - The tags stored
+     */
+    tags: (state) => state.tags,
 
     /**
      * Get all the voices

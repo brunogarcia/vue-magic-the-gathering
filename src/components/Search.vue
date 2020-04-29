@@ -1,14 +1,14 @@
 <template>
   <v-text-field
+    v-model="value"
     solo
     dense
     clearable
-    v-model="value"
     @input="onChangeValue"
   >
-      <template v-slot:prepend-inner>
-        <SearchIcon />
-      </template>
+    <template v-slot:prepend-inner>
+      <SearchIcon />
+    </template>
   </v-text-field>
 </template>
 
@@ -29,11 +29,11 @@ export default {
 
   methods: {
     ...mapActions({
-      filterVoices: 'voices/filterVoices',
+      filterVoicesByName: 'voices/filterVoicesByName',
     }),
 
     onChangeValue() {
-      this.filterVoices(this.value);
+      this.filterVoicesByName(this.value);
     },
   },
 };

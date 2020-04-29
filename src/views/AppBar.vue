@@ -5,15 +5,19 @@
     dark
   >
     <v-container>
-      <v-row>
+      <v-row class="mt-5">
         <v-col
           cols="12"
           xl="2"
           offset-xl="2"
         >
-          <div class="mt-5">
-            <Search />
-          </div>
+          <Search />
+        </v-col>
+        <v-col
+          cols="12"
+          xl="2"
+        >
+          <TagFilter />
         </v-col>
       </v-row>
   </v-container>
@@ -22,12 +26,14 @@
 
 <script>
 import Search from '@/components/Search.vue';
+import TagFilter from '@/components/TagFilter.vue';
 
 export default {
   name: 'AppBar',
 
   components: {
     Search,
+    TagFilter,
   },
 };
 </script>
