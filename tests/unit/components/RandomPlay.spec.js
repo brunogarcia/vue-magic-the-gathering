@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import '@testing-library/jest-dom';
 import RandomPlay from '@/components/RandomPlay.vue';
-import { render, fireEvent } from '@testing-library/vue';
+import { fireEvent } from '@testing-library/vue';
+import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
@@ -25,7 +26,7 @@ test('If there is a voice playing, stop it before play the random one', async ()
     },
   };
 
-  const { getByRole } = render(RandomPlay, { store });
+  const { getByRole } = renderWithVuetify(RandomPlay, { store });
 
   const component = getByRole('button');
 
@@ -55,7 +56,7 @@ test('If there is not a voice playing, play the random one', async () => {
     },
   };
 
-  const { getByRole } = render(RandomPlay, { store });
+  const { getByRole } = renderWithVuetify(RandomPlay, { store });
 
   const component = getByRole('button');
 

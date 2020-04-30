@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import '@testing-library/jest-dom';
 import Search from '@/components/Search.vue';
-import { render, fireEvent } from '@testing-library/vue';
+import { fireEvent } from '@testing-library/vue';
+import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
@@ -22,7 +23,7 @@ test('On change the input value, save the value on the store and filter the voic
     },
   };
 
-  const { getByPlaceholderText } = render(Search, { store });
+  const { getByPlaceholderText } = renderWithVuetify(Search, { store });
 
   const input = getByPlaceholderText('Type something');
 
