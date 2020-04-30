@@ -1,8 +1,13 @@
 <template>
-  <div class="text-right">
+  <div
+    role="button"
+    tabindex="0"
+    class="text-right"
+    title="Choose a random voice"
+    @click="onRandomPlayVoice"
+  >
     <RandomIcon
       class="vm-random-play"
-      @click="onRandomPlayVoice"
     />
   </div>
 </template>
