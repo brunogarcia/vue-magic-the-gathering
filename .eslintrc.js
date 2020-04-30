@@ -2,15 +2,18 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    'jest/globals': true,
   },
   extends: [
     'plugin:vue/essential',
     'plugin:jsdoc/recommended',
     'plugin:testing-library/recommended',
+    'plugin:jest/recommended',
     '@vue/airbnb',
   ],
   plugins: [
     'jsdoc',
+    'jest',
     'testing-library',
   ],
   parserOptions: {
