@@ -4,6 +4,7 @@
     solo
     dense
     clearable
+    placeholder="Type something"
     @input="onChangeValue"
   >
     <template v-slot:prepend-inner>
