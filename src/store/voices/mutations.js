@@ -1,4 +1,5 @@
 import types from '@/store/voices/utils/types';
+import getRandomVoice from '@/store/voices/utils/getRandomVoice';
 import getFilteredVoices from '@/store/voices/utils/getFilteredVoices';
 
 const {
@@ -9,7 +10,9 @@ const {
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_VOICES,
+  SAVE_PLAYING_VOICE,
   SAVE_FAVOURITE_VOICES,
+  SAVE_RANDOM_PLAYING_VOICE,
 
   FILTER_VOICES,
 
@@ -82,21 +85,42 @@ export default {
   },
 
   /**
-   * Toggle play voice
+   * Save random playing voice
+   *
+   * @param {object} state - Module state
+   */
+  [SAVE_RANDOM_PLAYING_VOICE](state) {
+    const { id } = getRandomVoice([...state.all]);
+
+    state.playingId = id;
+  },
+
+  /**
+   * Save playing id voice
    *
    * @param {object} state - Module state
    * @param {string} id - The voice id
    */
-  [TOGGLE_PLAY_VOICE](state, id) {
+  [SAVE_PLAYING_VOICE](state, id) {
+    state.playingId = id;
+  },
+
+  /**
+   * Toggle play voice
+   *
+   * @param {object} state - Module state
+   */
+  [TOGGLE_PLAY_VOICE](state) {
     const temp = [...state.all];
 
     // Find the index of the voice
-    const voiceIndex = temp.findIndex((voice) => voice.id === id);
+    const voiceIndex = temp.findIndex((voice) => voice.id === state.playingId);
 
-    // Update the voice
-    temp[voiceIndex].play = !temp[voiceIndex].play;
-
-    state.all = temp;
+    // If the voice exists, update the voice
+    if (voiceIndex !== -1) {
+      temp[voiceIndex].play = !temp[voiceIndex].play;
+      state.all = temp;
+    }
   },
 
   /**
@@ -111,10 +135,11 @@ export default {
     // Find the index of the voice
     const voiceIndex = temp.findIndex((voice) => voice.id === id);
 
-    // Update the voice
-    temp[voiceIndex].favourite = !temp[voiceIndex].favourite;
-
-    state.all = temp;
+    // If the voice exists, update the voice
+    if (voiceIndex !== -1) {
+      temp[voiceIndex].favourite = !temp[voiceIndex].favourite;
+      state.all = temp;
+    }
   },
 
   /**

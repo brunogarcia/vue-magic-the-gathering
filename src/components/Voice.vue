@@ -46,11 +46,13 @@ export default {
 
   methods: {
     ...mapActions({
+      savePlayingVoice: 'voices/savePlayingVoice',
       togglePlayVoice: 'voices/togglePlayVoice',
     }),
 
     onClickVoice() {
-      this.togglePlayVoice(this.voice.id);
+      this.savePlayingVoice(this.voice.id);
+      this.togglePlayVoice();
     },
 
     onMouseOverVoice() {

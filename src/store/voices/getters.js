@@ -1,5 +1,13 @@
 export default {
   /**
+   * Get playing id
+   *
+   * @param {object} state - The state of the module
+   * @returns {string} - The voice playing id
+   */
+  playingId: (state) => state.playingId,
+
+  /**
    * Get search mode
    *
    * @param {object} state - The state of the module

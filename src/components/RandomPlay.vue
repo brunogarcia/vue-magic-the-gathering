@@ -2,12 +2,14 @@
   <div class="text-right">
     <RandomIcon
       class="vm-random-play"
-      @click="onRandomActive"
+      @click="onRandomPlayVoice"
     />
   </div>
 </template>
 
 <script>
+import isNil from 'lodash.isnil';
+import { mapActions, mapGetters } from 'vuex';
 import RandomIcon from '@/assets/button-random.svg';
 
 export default {
@@ -21,9 +23,26 @@ export default {
     active: false,
   }),
 
+  computed: {
+    ...mapGetters({
+      playingId: 'voices/playingId',
+    }),
+  },
+
   methods: {
-    onRandomActive() {
-      console.log('actived');
+    ...mapActions({
+      playRandomVoice: 'voices/playRandomVoice',
+      togglePlayVoice: 'voices/togglePlayVoice',
+    }),
+
+    onRandomPlayVoice() {
+      // If there is a playing voice, stop it
+      if (!isNil(this.playingId)) {
+        this.togglePlayVoice();
+      }
+
+      // Play the random one
+      this.playRandomVoice();
     },
   },
 };

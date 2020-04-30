@@ -15,7 +15,9 @@ const {
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_VOICES,
+  SAVE_PLAYING_VOICE,
   SAVE_FAVOURITE_VOICES,
+  SAVE_RANDOM_PLAYING_VOICE,
 
   FILTER_VOICES,
 
@@ -47,14 +49,35 @@ export default {
   },
 
   /**
-   * Toggle play voice
+   * Play random voice
+   *
+   * @param {object} context - Vuex context
+   * @param {Function} context.commit - Vuex commit
+   */
+  playRandomVoice({ commit }) {
+    commit(SAVE_RANDOM_PLAYING_VOICE);
+    commit(TOGGLE_PLAY_VOICE);
+  },
+
+  /**
+   * Save playing id voice
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    * @param {string} id - The voice id
    */
-  togglePlayVoice({ commit }, id) {
-    commit(TOGGLE_PLAY_VOICE, id);
+  savePlayingVoice({ commit }, id) {
+    commit(SAVE_PLAYING_VOICE, id);
+  },
+
+  /**
+   * Toggle play voice
+   *
+   * @param {object} context - Vuex context
+   * @param {Function} context.commit - Vuex commit
+   */
+  togglePlayVoice({ commit }) {
+    commit(TOGGLE_PLAY_VOICE);
   },
 
   /**
