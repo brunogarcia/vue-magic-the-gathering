@@ -11,7 +11,7 @@
 import PropTypes from '@znck/prop-types';
 
 export default {
-  name: 'VoicesTile',
+  name: 'VoicesTitle',
   props: {
     text: PropTypes.string,
   },
