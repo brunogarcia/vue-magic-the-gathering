@@ -79,7 +79,11 @@ export default {
    * @param {object} state - Module state
    */
   [SAVE_RANDOM_PLAYING_VOICE](state) {
-    const voice = getRandomVoice([...state.all]);
+    const voice = getRandomVoice({
+      voices: [...state.all],
+      playingId: state.playingId,
+    });
+
     state.playingId = voice.id;
   },
 

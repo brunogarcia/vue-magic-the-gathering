@@ -10,24 +10,26 @@ function getRandomIndex(max) {
 }
 
 /**
- * Get only the not playing voices
+ * Filter voices by playing id
  *
  * @param {Array<object>} voices - The voices list
+ * @param {string} playingId - Current playing voice id
  * @returns {Array<object>} The voices list filtered
  */
-function getOnlyNotPlayingVoices(voices) {
-  return voices.filter((voice) => !voice.playing);
+function filterVoicesByPlayingId(voices, playingId) {
+  return voices.filter((voice) => voice.id !== playingId);
 }
 
 /**
  * Get random voice
  *
- * @param {Array<object>} voices - The voices list
+ * @param {object} payload - The payload
+ * @param {Array<object>} payload.voices - The voices list
+ * @param {string} payload.playingId - Current playing voice id
  * @returns {object} The random voice
  */
-export default function getRandomVoice(voices) {
-  // TODO: bug filter playing voices
-  const list = getOnlyNotPlayingVoices(voices);
+export default function getRandomVoice({ voices, playingId }) {
+  const list = filterVoicesByPlayingId(voices, playingId);
   const maxIndexExpected = list.length;
   const randomIndex = getRandomIndex(maxIndexExpected);
 
