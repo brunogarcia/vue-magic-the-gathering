@@ -1,4 +1,4 @@
-# voicemod
+# Voicemod
 
 ## Project setup
 ```

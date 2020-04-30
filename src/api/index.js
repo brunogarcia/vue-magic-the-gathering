@@ -1,6 +1,4 @@
-
 const getVoices = () => import(/* webpackChunkName: "voices" */ './mockData.json');
-
 
 /**
  * Fecth voices
