@@ -1,5 +1,6 @@
 <template>
   <div
+    role="button"
     class="vm-voice"
     :class="{ 'vm-voice__selected': voice.playing }"
     @click="onClickVoice"
