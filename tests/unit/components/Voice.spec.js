@@ -34,7 +34,7 @@ test('On click on the button, store the id and play/pause the voice', async () =
     },
   };
 
-  const { getByRole } = renderWithVuetify(Voice, { store, props });
+  const { getByRole } = renderWithVuetify(Voice, { store, props, stubs: ['VoiceFavourite'] });
 
   const voice = getByRole('button');
 
