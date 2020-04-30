@@ -26,13 +26,10 @@ function getOnlyNotPlayingVoices(voices) {
  * @returns {object} The random voice
  */
 export default function getRandomVoice(voices) {
+  // TODO: bug filter playing voices
   const list = getOnlyNotPlayingVoices(voices);
   const maxIndexExpected = list.length;
   const randomIndex = getRandomIndex(maxIndexExpected);
-
-  // TODO: filter playing voices
-  console.log(voices.length);
-  console.log(list.length);
 
   return list[randomIndex];
 }

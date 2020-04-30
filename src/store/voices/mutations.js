@@ -1,5 +1,6 @@
 import types from '@/store/voices/utils/types';
 import getRandomVoice from '@/store/voices/utils/getRandomVoice';
+import getPlayingVoices from '@/store/voices/utils/getPlayingVoices';
 import getFilteredVoices from '@/store/voices/utils/getFilteredVoices';
 
 const {
@@ -78,9 +79,8 @@ export default {
    * @param {object} state - Module state
    */
   [SAVE_RANDOM_PLAYING_VOICE](state) {
-    const { id } = getRandomVoice([...state.all]);
-
-    state.playingId = id;
+    const voice = getRandomVoice([...state.all]);
+    state.playingId = voice.id;
   },
 
   /**
@@ -99,15 +99,18 @@ export default {
    * @param {object} state - Module state
    */
   [TOGGLE_PLAY_VOICE](state) {
-    const temp = [...state.all];
+    const { all, cache } = getPlayingVoices({
+      id: state.playingId,
+      all: state.all,
+      cache: state.allCache,
+    });
 
-    // Find the index of the voice
-    const voiceIndex = temp.findIndex((voice) => voice.id === state.playingId);
+    if (all.length > 0) {
+      state.all = all;
+    }
 
-    // If the voice exists, update the voice
-    if (voiceIndex !== -1) {
-      temp[voiceIndex].playing = !temp[voiceIndex].playing;
-      state.all = temp;
+    if (cache.length > 0) {
+      state.allCache = cache;
     }
   },
 
@@ -153,10 +156,12 @@ export default {
       allCache,
     } = state;
 
-    const options = { search, tag, sortType: sort };
-    const optionsAll = { ...options, voices: allCache };
-
-    state.all = getFilteredVoices(optionsAll);
+    state.all = getFilteredVoices({
+      tag,
+      search,
+      sortType: sort,
+      voices: allCache,
+    });
   },
 
   /**

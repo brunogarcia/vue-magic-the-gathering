@@ -36,7 +36,7 @@ export default {
     }),
 
     onRandomPlayVoice() {
-      // If there is a playing voice, stop it
+      // If there is a voice playing, stop it before play the random one
       if (!isNil(this.playingId)) {
         this.togglePlayVoice();
       }
