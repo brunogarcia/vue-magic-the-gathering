@@ -7,7 +7,7 @@
 export default function mapVoices(voices) {
   return voices.map((voice) => ({
     ...voice,
-    play: false,
+    playing: false,
     favourite: false,
   }));
 }

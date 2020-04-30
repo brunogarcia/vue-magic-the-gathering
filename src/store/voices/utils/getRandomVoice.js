@@ -16,7 +16,7 @@ function getRandomIndex(max) {
  * @returns {Array<object>} The voices list filtered
  */
 function getOnlyNotPlayingVoices(voices) {
-  return voices.filter((voice) => !voice.play);
+  return voices.filter((voice) => !voice.playing);
 }
 
 /**
@@ -30,6 +30,7 @@ export default function getRandomVoice(voices) {
   const maxIndexExpected = list.length;
   const randomIndex = getRandomIndex(maxIndexExpected);
 
+  // TODO: filter playing voices
   console.log(voices.length);
   console.log(list.length);
 

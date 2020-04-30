@@ -118,7 +118,7 @@ export default {
 
     // If the voice exists, update the voice
     if (voiceIndex !== -1) {
-      temp[voiceIndex].play = !temp[voiceIndex].play;
+      temp[voiceIndex].playing = !temp[voiceIndex].playing;
       state.all = temp;
     }
   },

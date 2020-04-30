@@ -1,7 +1,7 @@
 <template>
   <div
     class="vm-voice"
-    :class="{ 'vm-voice__selected': voice.play }"
+    :class="{ 'vm-voice__selected': voice.playing }"
     @click="onClickVoice"
     @mouseover="onMouseOverVoice"
     @mouseleave="onMouseLeaveVoice"
