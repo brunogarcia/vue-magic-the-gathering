@@ -141,10 +141,10 @@ export default {
    * Toggle search mode
    *
    * @param {object} state - Module state
-   * @param {boolean} isValidValue - Flag for checking if the value is valid
+   * @param {boolean} value - Flag for checking if the value is valid
    */
-  [TOGGLE_SEARCH_MODE](state, isValidValue) {
-    state.searching = isValidValue;
+  [TOGGLE_SEARCH_MODE](state, value) {
+    state.searching = value;
   },
 
   /**

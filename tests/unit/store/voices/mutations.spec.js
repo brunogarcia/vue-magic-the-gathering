@@ -9,8 +9,10 @@ const {
   SAVE_ALL_VOICES,
   SAVE_RANDOM_PLAYING_VOICE,
   SAVE_PLAYING_VOICE,
+  TOGGLE_SEARCH_MODE,
   TOGGLE_PLAY_VOICE,
   TOGGLE_FAVOURITE_VOICE,
+  RESET_STATE,
 } = types;
 
 describe('Mutations', () => {
@@ -147,7 +149,7 @@ describe('Mutations', () => {
     expect(state.cache).toEqual(expected.cache);
   });
 
-  it('Toggle favourite voice', () => {
+  it('Toggle favourite voice with a valid id', () => {
     const id = '789';
 
     const expected = [
@@ -167,6 +169,63 @@ describe('Mutations', () => {
     };
 
     mutations[TOGGLE_FAVOURITE_VOICE](state, id);
+
+    expect(state.all).toEqual(expected);
+  });
+
+  it('Toggle favourite voice with an invalid id', () => {
+    const id = '999';
+
+    const expected = [
+      { id: '123', favourite: false },
+      { id: '456', favourite: false },
+      { id: '789', favourite: false },
+      { id: '159', favourite: false },
+    ];
+
+    const state = {
+      all: [
+        { id: '123', favourite: false },
+        { id: '456', favourite: false },
+        { id: '789', favourite: false },
+        { id: '159', favourite: false },
+      ],
+    };
+
+    mutations[TOGGLE_FAVOURITE_VOICE](state, id);
+
+    expect(state.all).toEqual(expected);
+  });
+
+  it('Toggle search mode', () => {
+    const state = { searching: false };
+
+    mutations[TOGGLE_SEARCH_MODE](state, true);
+
+    expect(state.searching).toBeTruthy();
+  });
+
+  it('Reset state', () => {
+    const expected = [
+      { id: '123', favourite: false },
+      { id: '456', favourite: false },
+      { id: '789', favourite: false },
+      { id: '159', favourite: false },
+    ];
+
+    const state = {
+      all: [
+        { id: '123', favourite: false },
+      ],
+      cache: [
+        { id: '123', favourite: false },
+        { id: '456', favourite: false },
+        { id: '789', favourite: false },
+        { id: '159', favourite: false },
+      ],
+    };
+
+    mutations[RESET_STATE](state);
 
     expect(state.all).toEqual(expected);
   });
