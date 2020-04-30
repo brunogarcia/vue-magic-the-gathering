@@ -1,7 +1,7 @@
 <template>
   <div class="text-right">
     <RandomIcon
-      class="vm-random"
+      class="vm-random-play"
       @click="onRandomActive"
     />
   </div>
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .vm-random {
+  .vm-random-play {
     cursor: pointer;
 
     &:hover {
@@ -38,6 +38,7 @@ export default {
       transform: translate3d(0, 0, 0);
       backface-visibility: hidden;
       perspective: 1000px;
+      filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
     }
 
     @keyframes shake {
