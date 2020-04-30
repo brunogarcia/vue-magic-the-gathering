@@ -7,6 +7,8 @@
     @click="onRandomPlayVoice"
   >
     <RandomIcon
+      role="img"
+      aria-label="Random icon"
       class="vm-random-play"
     />
   </div>

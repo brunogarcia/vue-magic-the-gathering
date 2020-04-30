@@ -7,7 +7,7 @@ import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('On click on the voice, store the id and play/pause the voice', async () => {
+test('On click on the button, store the id and play/pause the voice', async () => {
   const savePlayingVoiceMock = jest.fn();
   const togglePlayVoiceMock = jest.fn();
 

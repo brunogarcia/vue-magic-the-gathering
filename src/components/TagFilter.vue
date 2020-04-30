@@ -11,11 +11,17 @@
     @input="onSelectItem"
   >
     <template v-slot:prepend>
-      <FilterIcon />
+      <FilterIcon
+        role="img"
+        aria-label="Filter icon"
+      />
     </template>
 
     <template v-slot:append>
-      <SelectArrowIcon />
+      <SelectArrowIcon
+        role="img"
+        aria-label="Select arrow icon"
+      />
     </template>
 
     <template v-slot:item="{ item }">

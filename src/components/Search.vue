@@ -8,7 +8,10 @@
     @input="onChangeValue"
   >
     <template v-slot:prepend-inner>
-      <SearchIcon />
+      <SearchIcon
+        role="img"
+        aria-label="Search icon"
+      />
     </template>
   </v-text-field>
 </template>

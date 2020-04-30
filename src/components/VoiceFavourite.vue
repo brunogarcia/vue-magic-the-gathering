@@ -1,10 +1,20 @@
 <template>
   <div
+    role="button"
     class="vm-voice-favourite"
     @click.stop="onClickVoiceFavourite"
   >
-    <VoiceFavouriteOn v-if="isFavourite" />
-    <VoiceFavouriteOff v-if="isNotFavouriteAndHasMouseOver" />
+    <VoiceFavouriteOn
+      v-if="isFavouriteAndHasMouseOver"
+      role="img"
+      aria-label="Voice Favourite Active"
+    />
+
+    <VoiceFavouriteOff
+      v-if="isNotFavouriteAndHasMouseOver"
+      role="img"
+      aria-label="Voice Favourite Inactive"
+    />
   </div>
 </template>
 
@@ -29,7 +39,7 @@ export default {
   },
 
   computed: {
-    isFavourite() {
+    isFavouriteAndHasMouseOver() {
       return this.voice.favourite && this.mouseOver;
     },
 
