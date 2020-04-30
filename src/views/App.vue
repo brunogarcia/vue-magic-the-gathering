@@ -36,7 +36,7 @@ export default {
 
   data: () => ({
     loading: true,
-    error: true,
+    error: false,
     errorMessage: 'Sorry, there was a problem. Try again in a few minutes',
   }),
 

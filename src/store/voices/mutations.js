@@ -13,6 +13,7 @@ const {
 
   FILTER_VOICES,
 
+  TOGGLE_PLAY_VOICE,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
 } = types;
@@ -78,6 +79,24 @@ export default {
     const voices = state.all.filter((voice) => voice.favourite);
     state.favourite = voices;
     state.favouriteCache = voices;
+  },
+
+  /**
+   * Toggle play voice
+   *
+   * @param {object} state - Module state
+   * @param {string} id - The voice id
+   */
+  [TOGGLE_PLAY_VOICE](state, id) {
+    const temp = [...state.all];
+
+    // Find the index of the voice
+    const voiceIndex = temp.findIndex((voice) => voice.id === id);
+
+    // Update the voice
+    temp[voiceIndex].play = !temp[voiceIndex].play;
+
+    state.all = temp;
   },
 
   /**

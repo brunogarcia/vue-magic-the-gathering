@@ -19,6 +19,7 @@ const {
 
   FILTER_VOICES,
 
+  TOGGLE_PLAY_VOICE,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
 } = types;
@@ -43,6 +44,17 @@ export default {
     } catch (error) {
       return error;
     }
+  },
+
+  /**
+   * Toggle play voice
+   *
+   * @param {object} context - Vuex context
+   * @param {Function} context.commit - Vuex commit
+   * @param {string} id - The voice id
+   */
+  togglePlayVoice({ commit }, id) {
+    commit(TOGGLE_PLAY_VOICE, id);
   },
 
   /**

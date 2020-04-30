@@ -1,7 +1,7 @@
 <template>
   <div
     class="vm-voice"
-    v-bind:class="{ 'vm-voice__selected': selectedVoice }"
+    :class="{ 'vm-voice__selected': voice.play }"
     @click="onClickVoice"
     @mouseover="onMouseOverVoice"
     @mouseleave="onMouseLeaveVoice"
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import types from '@/utils/types';
 import VoiceFavourite from '@/components/VoiceFavourite.vue';
 
@@ -41,13 +42,15 @@ export default {
 
   data: () => ({
     mouseOverVoice: false,
-    selectedVoice: false,
   }),
 
   methods: {
+    ...mapActions({
+      togglePlayVoice: 'voices/togglePlayVoice',
+    }),
+
     onClickVoice() {
-      this.selectedVoice = !this.selectedVoice;
-      // TODO: play the voice
+      this.togglePlayVoice(this.voice.id);
     },
 
     onMouseOverVoice() {
