@@ -70,7 +70,7 @@ export default {
    */
   [SAVE_ALL_VOICES](state, voices) {
     state.all = voices;
-    state.allCache = voices;
+    state.cache = voices;
   },
 
   /**
@@ -102,7 +102,7 @@ export default {
     const { all, cache } = getPlayingVoices({
       id: state.playingId,
       all: state.all,
-      cache: state.allCache,
+      cache: state.cache,
     });
 
     if (all.length > 0) {
@@ -110,7 +110,7 @@ export default {
     }
 
     if (cache.length > 0) {
-      state.allCache = cache;
+      state.cache = cache;
     }
   },
 
@@ -153,14 +153,14 @@ export default {
       tag,
       sort,
       search,
-      allCache,
+      cache,
     } = state;
 
     state.all = getFilteredVoices({
       tag,
       search,
       sortType: sort,
-      voices: allCache,
+      voices: cache,
     });
   },
 
@@ -170,7 +170,7 @@ export default {
    * @param {object} state - Module state
    */
   [RESET_STATE](state) {
-    const { allCache } = state;
-    state.all = [...allCache];
+    const { cache } = state;
+    state.all = [...cache];
   },
 };
