@@ -11,7 +11,6 @@ const {
   SAVE_TAGS,
   SAVE_ALL_VOICES,
   SAVE_PLAYING_VOICE,
-  SAVE_FAVOURITE_VOICES,
   SAVE_RANDOM_PLAYING_VOICE,
 
   FILTER_VOICES,
@@ -71,17 +70,6 @@ export default {
   [SAVE_ALL_VOICES](state, voices) {
     state.all = voices;
     state.allCache = voices;
-  },
-
-  /**
-   * Save favourite voices
-   *
-   * @param {object} state - Module state
-   */
-  [SAVE_FAVOURITE_VOICES](state) {
-    const voices = state.all.filter((voice) => voice.favourite);
-    state.favourite = voices;
-    state.favouriteCache = voices;
   },
 
   /**
@@ -163,15 +151,12 @@ export default {
       sort,
       search,
       allCache,
-      favouriteCache,
     } = state;
 
     const options = { search, tag, sortType: sort };
     const optionsAll = { ...options, voices: allCache };
-    const optionsFavourite = { ...options, voices: favouriteCache };
 
     state.all = getFilteredVoices(optionsAll);
-    state.favourite = getFilteredVoices(optionsFavourite);
   },
 
   /**
@@ -180,9 +165,7 @@ export default {
    * @param {object} state - Module state
    */
   [RESET_STATE](state) {
-    const { allCache, favouriteCache } = state;
-
+    const { allCache } = state;
     state.all = [...allCache];
-    state.favourite = [...favouriteCache];
   },
 };

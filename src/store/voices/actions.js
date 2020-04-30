@@ -16,7 +16,6 @@ const {
   SAVE_TAGS,
   SAVE_ALL_VOICES,
   SAVE_PLAYING_VOICE,
-  SAVE_FAVOURITE_VOICES,
   SAVE_RANDOM_PLAYING_VOICE,
 
   FILTER_VOICES,
@@ -89,7 +88,6 @@ export default {
    */
   toggleFavouriteVoice({ commit }, id) {
     commit(TOGGLE_FAVOURITE_VOICE, id);
-    commit(SAVE_FAVOURITE_VOICES);
   },
 
   /**

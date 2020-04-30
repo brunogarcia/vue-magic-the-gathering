@@ -46,8 +46,12 @@ export default {
 
   computed: {
     ...mapGetters({
-      showFavourite: 'voices/showFavourite',
+      favourite: 'voices/favourite',
     }),
+
+    showFavourite() {
+      return this.favourite.length > 0;
+    },
   },
 
   methods: {

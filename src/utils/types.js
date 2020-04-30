@@ -2,7 +2,8 @@ import PropTypes from '@znck/prop-types';
 
 const voice = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  favourite: PropTypes.bool,
+  playing: PropTypes.bool.isRequired,
+  favourite: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -11,6 +11,4 @@ export default {
   searching: false,
   all: [],
   allCache: [],
-  favourite: [],
-  favouriteCache: [],
 };
