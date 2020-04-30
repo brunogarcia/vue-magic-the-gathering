@@ -1,10 +1,17 @@
 <template>
   <v-app>
     <AppBar />
-    <v-content v-if="!loading">
-      <FavouriteVoices v-if="showFavourite" />
-      <ProVoices />
+    <v-content>
+      <Loading v-if="loading" />
+      <div v-else>
+        <FavouriteVoices v-if="showFavourite" />
+        <ProVoices />
+      </div>
     </v-content>
+    <Snackbar
+      v-if="error"
+      :message="errorMessage"
+    />
   </v-app>
 </template>
 
@@ -12,6 +19,8 @@
 import { mapActions, mapGetters } from 'vuex';
 import AppBar from '@/views/AppBar.vue';
 import ProVoices from '@/views/ProVoices.vue';
+import Loading from '@/components/Loading.vue';
+import Snackbar from '@/components/Snackbar.vue';
 import FavouriteVoices from '@/views/FavouriteVoices.vue';
 
 export default {
@@ -19,12 +28,16 @@ export default {
 
   components: {
     AppBar,
+    Loading,
+    Snackbar,
     ProVoices,
     FavouriteVoices,
   },
 
   data: () => ({
     loading: true,
+    error: true,
+    errorMessage: 'Sorry, there was a problem. Try again in a few minutes',
   }),
 
   created() {
@@ -46,7 +59,7 @@ export default {
       try {
         await this.getVoices();
       } catch (error) {
-        // TODO: show snackbar
+        this.error = true;
       } finally {
         this.loading = false;
       }
