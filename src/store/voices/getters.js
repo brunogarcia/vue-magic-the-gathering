@@ -45,13 +45,5 @@ export default {
    * @param {object} state - The state of the module
    * @returns {Array<object>} - The favourite voices
    */
-  favourite: (state) => state.favourite,
-
-  /**
-   * Show favourite voices
-   *
-   * @param {object} state - The state of the module
-   * @returns {boolean} - The validation flag
-   */
-  showFavourite: (state) => state.favourite.length > 0,
+  favourite: (state) => state.all.filter((item) => item.favourite),
 };
