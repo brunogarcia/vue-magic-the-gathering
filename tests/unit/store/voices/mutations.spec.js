@@ -1,18 +1,25 @@
 import types from '@/store/voices/utils/types';
 import mutations from '@/store/voices/mutations';
+import constants from '@/utils/constants';
+
+const { SORT, TAGS } = constants;
 
 const {
+  RESET_STATE,
+
   SAVE_SORT,
   SAVE_SEARCH,
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_VOICES,
-  SAVE_RANDOM_PLAYING_VOICE,
   SAVE_PLAYING_VOICE,
-  TOGGLE_SEARCH_MODE,
+  SAVE_RANDOM_PLAYING_VOICE,
+
+  FILTER_VOICES,
+
   TOGGLE_PLAY_VOICE,
+  TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_VOICE,
-  RESET_STATE,
 } = types;
 
 describe('Mutations', () => {
@@ -226,6 +233,262 @@ describe('Mutations', () => {
     };
 
     mutations[RESET_STATE](state);
+
+    expect(state.all).toEqual(expected);
+  });
+
+  it('Filter voices: scenario #1', () => {
+    /**
+     * Rules:
+     *  - The search have a valid value
+     *  - The tag 'all' is selected
+     */
+    const expected = [
+      {
+        id: 'zombie',
+        name: 'Zombie',
+        tags: [
+          'horror',
+        ],
+      },
+    ];
+
+    const state = {
+      tag: TAGS.ALL,
+      sort: SORT.ASC,
+      search: 'zombie',
+      cache: [
+        {
+          id: '2x1',
+          name: '2x1',
+          tags: [
+            'misc',
+          ],
+        },
+        {
+          id: 'dark',
+          name: 'Dark',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'kong',
+          name: 'Kong',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'zombie',
+          name: 'Zombie',
+          tags: [
+            'horror',
+          ],
+        },
+      ],
+    };
+
+    mutations[FILTER_VOICES](state);
+
+    expect(state.all).toEqual(expected);
+  });
+
+  it('Filter voices: scenario #2', () => {
+    /**
+     * Rules:
+     *  - The search have a valid value
+     *  - The tag selected is not 'all'
+     */
+    const expected = [
+      {
+        id: 'dark',
+        name: 'Dark',
+        tags: [
+          'character',
+        ],
+      },
+    ];
+
+    const state = {
+      tag: 'character',
+      sort: SORT.ASC,
+      search: 'dark',
+      cache: [
+        {
+          id: '2x1',
+          name: '2x1',
+          tags: [
+            'misc',
+          ],
+        },
+        {
+          id: 'dark',
+          name: 'Dark',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'kong',
+          name: 'Kong',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'zombie',
+          name: 'Zombie',
+          tags: [
+            'horror',
+          ],
+        },
+      ],
+    };
+
+    mutations[FILTER_VOICES](state);
+
+    expect(state.all).toEqual(expected);
+  });
+
+  it('Filter voices: scenario #3', () => {
+    /**
+     * Rules:
+     *  - The search doesn't have a valid value
+     *  - The tag 'all' is selected
+     */
+    const expected = [
+      {
+        id: 'zombie',
+        name: 'Zombie',
+        tags: [
+          'horror',
+        ],
+      },
+      {
+        id: 'kong',
+        name: 'Kong',
+        tags: [
+          'character',
+        ],
+      },
+      {
+        id: 'dark',
+        name: 'Dark',
+        tags: [
+          'character',
+        ],
+      },
+      {
+        id: '2x1',
+        name: '2x1',
+        tags: [
+          'misc',
+        ],
+      },
+    ];
+
+    const state = {
+      tag: TAGS.ALL,
+      sort: SORT.DESC,
+      search: null,
+      cache: [
+        {
+          id: '2x1',
+          name: '2x1',
+          tags: [
+            'misc',
+          ],
+        },
+        {
+          id: 'dark',
+          name: 'Dark',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'kong',
+          name: 'Kong',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'zombie',
+          name: 'Zombie',
+          tags: [
+            'horror',
+          ],
+        },
+      ],
+    };
+
+    mutations[FILTER_VOICES](state);
+
+    expect(state.all).toEqual(expected);
+  });
+
+  it('Filter voices: scenario #4', () => {
+    /**
+     * Rules:
+     *  - The search doesn't have a valid value
+     *  - The tag selected is not 'all'
+     */
+    const expected = [
+      {
+        id: 'dark',
+        name: 'Dark',
+        tags: [
+          'character',
+        ],
+      },
+      {
+        id: 'kong',
+        name: 'Kong',
+        tags: [
+          'character',
+        ],
+      },
+    ];
+
+    const state = {
+      tag: 'character',
+      sort: SORT.ASC,
+      search: null,
+      cache: [
+        {
+          id: '2x1',
+          name: '2x1',
+          tags: [
+            'misc',
+          ],
+        },
+        {
+          id: 'dark',
+          name: 'Dark',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'kong',
+          name: 'Kong',
+          tags: [
+            'character',
+          ],
+        },
+        {
+          id: 'zombie',
+          name: 'Zombie',
+          tags: [
+            'horror',
+          ],
+        },
+      ],
+    };
+
+    mutations[FILTER_VOICES](state);
 
     expect(state.all).toEqual(expected);
   });

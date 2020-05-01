@@ -67,16 +67,16 @@ function filterByTag(voice, tag) {
 }
 
 /**
- * Get scenario #1
+ * Apply scenario #1
  *
  * Rules:
- * - the search have a valid value
- * - the 'all' tag is selected
+ *  - The search have a valid value
+ *  - The tag 'all' is selected
  *
  * @param {object} payload - The payload data
  * @returns {Array<object>} - The list of voices filtered
  */
-function getScenario1(payload) {
+function applyScenario1(payload) {
   const { voices, search, sortType } = payload;
 
   return voices
@@ -85,16 +85,16 @@ function getScenario1(payload) {
 }
 
 /**
- * Get scenario #2
+ * Apply scenario #2
  *
  * Rules:
- * - the search have a valid value
- * - the tag selected is not 'all'
+ * - The search have a valid value
+ * - The tag selected is not 'all'
  *
  * @param {object} payload - The payload data
  * @returns {Array<object>} - The list of voices filtered
  */
-function getScenario2(payload) {
+function applyScenario2(payload) {
   const {
     voices,
     tag,
@@ -109,16 +109,16 @@ function getScenario2(payload) {
 }
 
 /**
- * Get scenario #3
+ * Apply scenario #3
  *
  * Rules:
- * - the search doesn't have a valid value
- * - the 'all' tag is selected
+ * - The search doesn't have a valid value
+ * - The tag 'all' is selected
  *
  * @param {object} payload - The payload data
  * @returns {Array<object>} - The list of voices filtered
  */
-function getScenario3(payload) {
+function applyScenario3(payload) {
   const { voices, sortType } = payload;
 
   return voices
@@ -126,16 +126,16 @@ function getScenario3(payload) {
 }
 
 /**
- * Get scenario #4
+ * Apply scenario #4
  *
  * Rules:
- * - the search doesn't have a valid value
- * - the tag selected is not 'all'
+ * - The search doesn't have a valid value
+ * - The tag selected is not 'all'
  *
  * @param {object} payload - The payload data
  * @returns {Array<object>} - The list of voices filtered
  */
-function getScenario4(payload) {
+function applyScenario4(payload) {
   const { voices, tag, sortType } = payload;
 
   return voices
@@ -163,19 +163,19 @@ export default function getFilteredVoices(payload) {
   const scenario4 = !isValidSearchValue && tag !== TAGS.ALL;
 
   if (scenario1) {
-    return getScenario1(payload);
+    return applyScenario1(payload);
   }
 
   if (scenario2) {
-    return getScenario2(payload);
+    return applyScenario2(payload);
   }
 
   if (scenario3) {
-    return getScenario3(payload);
+    return applyScenario3(payload);
   }
 
   if (scenario4) {
-    return getScenario4(payload);
+    return applyScenario4(payload);
   }
 
   return voices;
