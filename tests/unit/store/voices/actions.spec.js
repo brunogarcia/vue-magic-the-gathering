@@ -6,18 +6,64 @@ const { TAGS } = constants;
 
 const {
   RESET_STATE,
-  SAVE_TAG,
+
   SAVE_SORT,
   SAVE_SEARCH,
-  FILTER_VOICES,
+  SAVE_TAG,
+  SAVE_TAGS,
+  SAVE_ALL_VOICES,
+  SAVE_PLAYING_VOICE,
   SAVE_RANDOM_PLAYING_VOICE,
+
+  FILTER_VOICES,
+
   TOGGLE_PLAY_VOICE,
   TOGGLE_SEARCH_MODE,
-  SAVE_PLAYING_VOICE,
   TOGGLE_FAVOURITE_VOICE,
 } = types;
 
+jest.mock('@/api');
+
 describe('Voices store - Actions', () => {
+  it('getVoices', async () => {
+    const commit = jest.fn();
+
+    await actions.getVoices({ commit });
+
+    const expected = {
+      tags: ['all', 'devices', 'horror', 'misc'],
+      voices: [
+        {
+          id: '2x1',
+          name: '2x1',
+          icon: 'VoicesVoiceIcon01.png',
+          tags: ['misc'],
+          playing: false,
+          favourite: false,
+        },
+        {
+          id: '8bits',
+          name: '8bits',
+          icon: 'VoicesVoiceIcon02.png',
+          tags: ['devices'],
+          playing: false,
+          favourite: false,
+        },
+        {
+          id: 'zombie',
+          name: 'Zombie',
+          icon: 'VoicesVoiceIcon03.png',
+          tags: ['horror'],
+          playing: false,
+          favourite: false,
+        },
+      ],
+    };
+
+    expect(commit).toHaveBeenCalledWith(SAVE_TAGS, expected.tags);
+    expect(commit).toHaveBeenCalledWith(SAVE_ALL_VOICES, expected.voices);
+  });
+
   it('playRandomVoice', async () => {
     const commit = jest.fn();
 
