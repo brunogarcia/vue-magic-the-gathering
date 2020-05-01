@@ -1,6 +1,6 @@
+import constants from '@/utils/constants';
 import types from '@/store/voices/utils/types';
 import mutations from '@/store/voices/mutations';
-import constants from '@/utils/constants';
 
 const { SORT, TAGS } = constants;
 
@@ -22,7 +22,7 @@ const {
   TOGGLE_FAVOURITE_VOICE,
 } = types;
 
-describe('Mutations', () => {
+describe('Voices store - Mutations', () => {
   it('Save sort', () => {
     const state = { sort: null };
 
