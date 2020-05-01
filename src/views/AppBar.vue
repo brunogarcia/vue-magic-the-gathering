@@ -13,7 +13,7 @@
         >
           <v-row class="mt-5">
             <v-col
-              cols="4"
+              cols="5"
               xl="3"
             >
               <Search />

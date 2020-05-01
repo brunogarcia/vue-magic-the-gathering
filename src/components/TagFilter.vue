@@ -12,6 +12,7 @@
   >
     <template v-slot:prepend>
       <FilterIcon
+        class="d-none d-sm-block"
         role="img"
         aria-label="Filter icon"
       />
@@ -19,6 +20,7 @@
 
     <template v-slot:append>
       <SelectArrowIcon
+        class="d-none d-sm-block"
         role="img"
         aria-label="Select arrow icon"
       />
@@ -29,7 +31,16 @@
     </template>
 
     <template v-slot:selection="{ item }">
-      <span class="white--text text-capitalize">{{ item }}</span>
+      <span
+        class="d-none d-sm-block white--text text-capitalize">
+        {{ item }}
+      </span>
+
+      <FilterIcon
+        role="img"
+        class="d-block d-sm-none"
+        aria-label="Filter icon"
+      />
     </template>
   </v-select>
 </template>

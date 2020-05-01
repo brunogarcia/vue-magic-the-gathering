@@ -65,7 +65,7 @@ export default {
     position: absolute;
     top: 0.6em;
     right: 0;
-    padding: 0 4px;
+    padding: 0 6px;
     border-radius: 100%;
     background-color: #ffffff;
   }

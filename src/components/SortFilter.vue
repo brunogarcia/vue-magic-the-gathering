@@ -12,6 +12,7 @@
   >
     <template v-slot:prepend>
       <OrderIcon
+        class="d-none d-sm-block"
         role="img"
         aria-label="Order icon"
       />
@@ -19,6 +20,7 @@
 
     <template v-slot:append>
       <SelectArrowIcon
+        class="d-none d-md-block"
         role="img"
         aria-label="Select arrow icon"
       />
@@ -26,10 +28,19 @@
 
     <template v-slot:item="{ item }">
       <span class="white--text text-capitalize">{{ item }}</span>
-
     </template>
-        <template v-slot:selection="{ item }">
-      <span class="white--text text-capitalize">{{ item }}</span>
+
+    <template v-slot:selection="{ item }">
+      <span
+        class="d-none d-sm-block white--text text-capitalize">
+        {{ item }}
+      </span>
+
+      <OrderIcon
+        role="img"
+        class="d-block d-sm-none"
+        aria-label="Order icon"
+      />
     </template>
   </v-select>
 </template>
