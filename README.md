@@ -1,4 +1,4 @@
-# Voicemod
+# Vue with search and multiple filters
 
 ## Project setup
 ```
