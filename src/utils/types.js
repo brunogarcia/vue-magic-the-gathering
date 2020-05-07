@@ -1,17 +1,17 @@
 import PropTypes from '@znck/prop-types';
 
-const voice = PropTypes.shape({
+const card = PropTypes.shape({
   id: PropTypes.string.isRequired,
   playing: PropTypes.bool.isRequired,
   favourite: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
-const voices = PropTypes.arrayOf(voice).isRequired;
+const cards = PropTypes.arrayOf(card).isRequired;
 
 export default {
-  voice,
-  voices,
+  card,
+  cards,
 };

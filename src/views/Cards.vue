@@ -6,8 +6,8 @@
         xl="8"
         offset-xl="2"
       >
-        <VoicesTitle text="Pro Voices" />
-        <Voices :voices="all" />
+        <CardsTitle text="Cards" />
+        <CardsComponent :cards="all" />
         <Alert
           v-if="showAlert"
           :message="messageAlert"
@@ -20,27 +20,27 @@
 <script>
 import { mapGetters } from 'vuex';
 import Alert from '@/components/Alert.vue';
-import Voices from '@/components/Voices.vue';
-import VoicesTitle from '@/components/VoicesTitle.vue';
+import CardsComponent from '@/components/Cards.vue';
+import CardsTitle from '@/components/CardsTitle.vue';
 
 export default {
-  name: 'ProVoices',
+  name: 'Cards',
 
   components: {
     Alert,
-    Voices,
-    VoicesTitle,
+    CardsComponent,
+    CardsTitle,
   },
 
   computed: {
     ...mapGetters({
-      tag: 'voices/tag',
-      all: 'voices/all',
-      searching: 'voices/searching',
+      tag: 'cards/tag',
+      all: 'cards/all',
+      searching: 'cards/searching',
     }),
 
     messageAlert() {
-      return `No pro voice found on the ${this.tag} category`;
+      return `No card found on the ${this.tag} category`;
     },
 
     showAlert() {

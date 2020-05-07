@@ -3,7 +3,7 @@ export default {
    * Get playing id
    *
    * @param {object} state - The state of the module
-   * @returns {string} - The voice playing id
+   * @returns {string} - The card playing id
    */
   playingId: (state) => state.playingId,
 
@@ -32,18 +32,18 @@ export default {
   tags: (state) => state.tags,
 
   /**
-   * Get all the voices
+   * Get all the cards
    *
    * @param {object} state - The state of the module
-   * @returns {Array<object>} - The voices stored
+   * @returns {Array<object>} - The cards stored
    */
   all: (state) => state.all,
 
   /**
-   * Get the favourite voices
+   * Get the favourite cards
    *
    * @param {object} state - The state of the module
-   * @returns {Array<object>} - The favourite voices
+   * @returns {Array<object>} - The favourite cards
    */
   favourite: (state) => state.all.filter((item) => item.favourite),
 };

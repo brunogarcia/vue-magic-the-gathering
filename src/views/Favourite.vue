@@ -6,8 +6,8 @@
         xl="8"
         offset-xl="2"
       >
-        <VoicesTitle text="Favourite Voices" />
-        <Voices :voices="favourite" />
+        <CardsTitle text="Favourite" />
+        <Cards :cards="favourite" />
         <Alert
           v-if="showAlert"
           :message="messageAlert"
@@ -20,27 +20,27 @@
 <script>
 import { mapGetters } from 'vuex';
 import Alert from '@/components/Alert.vue';
-import Voices from '@/components/Voices.vue';
-import VoicesTitle from '@/components/VoicesTitle.vue';
+import Cards from '@/components/Cards.vue';
+import CardsTitle from '@/components/CardsTitle.vue';
 
 export default {
-  name: 'FavouriteVoices',
+  name: 'Favourite',
 
   components: {
     Alert,
-    Voices,
-    VoicesTitle,
+    Cards,
+    CardsTitle,
   },
 
   computed: {
     ...mapGetters({
-      tag: 'voices/tag',
-      favourite: 'voices/favourite',
-      searching: 'voices/searching',
+      tag: 'cards/tag',
+      favourite: 'cards/favourite',
+      searching: 'cards/searching',
     }),
 
     messageAlert() {
-      return `No favourite voice found on the ${this.tag} category`;
+      return `No favourite card found on the ${this.tag} category`;
     },
 
     showAlert() {

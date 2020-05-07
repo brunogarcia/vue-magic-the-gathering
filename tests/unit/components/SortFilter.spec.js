@@ -7,17 +7,17 @@ import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('On select a item, save the value on the store and sort the voices', async () => {
+test('On select a item, save the value on the store and sort the cards', async () => {
   const saveSortMock = jest.fn();
-  const sortVoicesMock = jest.fn();
+  const sortCardsMock = jest.fn();
 
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         actions: {
           saveSort: saveSortMock,
-          sortVoices: sortVoicesMock,
+          sortCards: sortCardsMock,
         },
       },
     },
@@ -35,5 +35,5 @@ test('On select a item, save the value on the store and sort the voices', async 
 
   expect(saveSortMock.mock.calls.length).toBe(1);
   expect(saveSortMock.mock.calls[0][1]).toBe('desc');
-  expect(sortVoicesMock.mock.calls.length).toBe(1);
+  expect(sortCardsMock.mock.calls.length).toBe(1);
 });

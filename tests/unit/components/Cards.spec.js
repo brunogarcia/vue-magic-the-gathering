@@ -1,20 +1,20 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import '@testing-library/jest-dom';
-import Voices from '@/components/Voices.vue';
+import Cards from '@/components/Cards.vue';
 import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('Must renders a list of voices', async () => {
+test('Must renders a list of cards', async () => {
   const props = {
-    voices: [
+    cards: [
       {
         id: 'zombie',
         playing: false,
         favourite: false,
         name: 'Zombie',
-        icon: 'zombie-icon',
+        imageUrl: 'image01.png',
         tags: ['horror'],
       },
       {
@@ -22,7 +22,7 @@ test('Must renders a list of voices', async () => {
         playing: false,
         favourite: false,
         name: 'Android',
-        icon: 'android-icon',
+        imageUrl: 'image02.png',
         tags: ['tech'],
       },
       {
@@ -30,13 +30,13 @@ test('Must renders a list of voices', async () => {
         playing: false,
         favourite: false,
         name: 'Cave',
-        icon: 'cave-icon',
+        imageUrl: 'image03.png',
         tags: ['horror'],
       },
     ],
   };
 
-  const { getByText } = renderWithVuetify(Voices, { props });
+  const { getByText } = renderWithVuetify(Cards, { props });
 
   const zombie = getByText('Zombie');
   const android = getByText('Android');

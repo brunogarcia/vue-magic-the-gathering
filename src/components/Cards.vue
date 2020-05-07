@@ -1,30 +1,30 @@
 <template>
   <v-row class="text-center">
     <v-col
-      v-for="voice in voices"
-      :key="voice.id"
+      v-for="card in cards"
+      :key="card.id"
       cols="6"
-      sm="3"
-      md="2"
+      sm="4"
+      md="3"
     >
-      <Voice :voice="voice" />
+      <Card :card="card" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import types from '@/utils/types';
-import Voice from '@/components/Voice.vue';
+import Card from '@/components/Card.vue';
 
 export default {
-  name: 'Voices',
+  name: 'Cards',
 
   components: {
-    Voice,
+    Card,
   },
 
   props: {
-    voices: types.voices,
+    cards: types.cards,
   },
 };
 </script>

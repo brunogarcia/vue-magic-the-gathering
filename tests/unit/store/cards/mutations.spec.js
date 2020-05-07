@@ -1,6 +1,6 @@
 import constants from '@/utils/constants';
-import types from '@/store/voices/utils/types';
-import mutations from '@/store/voices/mutations';
+import types from '@/store/cards/utils/types';
+import mutations from '@/store/cards/mutations';
 
 const { SORT, TAGS } = constants;
 
@@ -11,15 +11,15 @@ const {
   SAVE_SEARCH,
   SAVE_TAG,
   SAVE_TAGS,
-  SAVE_ALL_VOICES,
-  SAVE_PLAYING_VOICE,
-  SAVE_RANDOM_PLAYING_VOICE,
+  SAVE_ALL_CARDS,
+  SAVE_PLAYING_CARD,
+  SAVE_RANDOM_PLAYING_CARD,
 
-  FILTER_VOICES,
+  FILTER_CARDS,
 
-  TOGGLE_PLAY_VOICE,
+  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
-  TOGGLE_FAVOURITE_VOICE,
+  TOGGLE_FAVOURITE_CARD,
 } = types;
 
 describe('Voices store - Mutations', () => {
@@ -55,7 +55,7 @@ describe('Voices store - Mutations', () => {
     expect(state.tags).toEqual(['Horror', 'Tech']);
   });
 
-  it('Save voices', () => {
+  it('Save cards', () => {
     const expected = [
       { id: '123' },
       { id: '456' },
@@ -64,7 +64,7 @@ describe('Voices store - Mutations', () => {
 
     const state = { all: [], cache: [] };
 
-    mutations[SAVE_ALL_VOICES](state, [
+    mutations[SAVE_ALL_CARDS](state, [
       { id: '123' },
       { id: '456' },
       { id: '789' },
@@ -74,7 +74,7 @@ describe('Voices store - Mutations', () => {
     expect(state.cache).toEqual(expected);
   });
 
-  it('Save random playing voice', () => {
+  it('Save random playing card', () => {
     const state = {
       playingId: '456',
       all: [
@@ -83,20 +83,20 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[SAVE_RANDOM_PLAYING_VOICE](state);
+    mutations[SAVE_RANDOM_PLAYING_CARD](state);
 
     expect(state.playingId).toEqual('123');
   });
 
-  it('Save playing voice', () => {
+  it('Save playing card', () => {
     const state = { playingId: null };
 
-    mutations[SAVE_PLAYING_VOICE](state, '123');
+    mutations[SAVE_PLAYING_CARD](state, '123');
 
     expect(state.playingId).toBe('123');
   });
 
-  it('Toggle play voice: all list', () => {
+  it('Toggle play card: all list', () => {
     const expected = {
       all: [
         { id: '123', playing: false },
@@ -120,13 +120,13 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[TOGGLE_PLAY_VOICE](state);
+    mutations[TOGGLE_PLAY_CARD](state);
 
     expect(state.all).toEqual(expected.all);
     expect(state.cache).toEqual(expected.cache);
   });
 
-  it('Toggle play voice: cache list', () => {
+  it('Toggle play card: cache list', () => {
     const expected = {
       all: [
         { id: '123', playing: false },
@@ -150,13 +150,13 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[TOGGLE_PLAY_VOICE](state);
+    mutations[TOGGLE_PLAY_CARD](state);
 
     expect(state.all).toEqual(expected.all);
     expect(state.cache).toEqual(expected.cache);
   });
 
-  it('Toggle favourite voice with a valid id', () => {
+  it('Toggle favourite card with a valid id', () => {
     const id = '789';
 
     const expected = [
@@ -175,12 +175,12 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[TOGGLE_FAVOURITE_VOICE](state, id);
+    mutations[TOGGLE_FAVOURITE_CARD](state, id);
 
     expect(state.all).toEqual(expected);
   });
 
-  it('Toggle favourite voice with an invalid id', () => {
+  it('Toggle favourite card with an invalid id', () => {
     const id = '999';
 
     const expected = [
@@ -199,7 +199,7 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[TOGGLE_FAVOURITE_VOICE](state, id);
+    mutations[TOGGLE_FAVOURITE_CARD](state, id);
 
     expect(state.all).toEqual(expected);
   });
@@ -237,7 +237,7 @@ describe('Voices store - Mutations', () => {
     expect(state.all).toEqual(expected);
   });
 
-  it('Filter voices: scenario #1', () => {
+  it('Filter cards: scenario #1', () => {
     /**
      * Rules:
      *  - The search have a valid value
@@ -289,12 +289,12 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[FILTER_VOICES](state);
+    mutations[FILTER_CARDS](state);
 
     expect(state.all).toEqual(expected);
   });
 
-  it('Filter voices: scenario #2', () => {
+  it('Filter cards: scenario #2', () => {
     /**
      * Rules:
      *  - The search have a valid value
@@ -346,12 +346,12 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[FILTER_VOICES](state);
+    mutations[FILTER_CARDS](state);
 
     expect(state.all).toEqual(expected);
   });
 
-  it('Filter voices: scenario #3', () => {
+  it('Filter cards: scenario #3', () => {
     /**
      * Rules:
      *  - The search doesn't have a valid value
@@ -424,12 +424,12 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[FILTER_VOICES](state);
+    mutations[FILTER_CARDS](state);
 
     expect(state.all).toEqual(expected);
   });
 
-  it('Filter voices: scenario #4', () => {
+  it('Filter cards: scenario #4', () => {
     /**
      * Rules:
      *  - The search doesn't have a valid value
@@ -488,7 +488,7 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[FILTER_VOICES](state);
+    mutations[FILTER_CARDS](state);
 
     expect(state.all).toEqual(expected);
   });

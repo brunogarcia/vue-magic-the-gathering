@@ -33,13 +33,13 @@ export default {
 
   methods: {
     ...mapActions({
-      saveSearch: 'voices/saveSearch',
-      filterVoicesByName: 'voices/filterVoicesByName',
+      saveSearch: 'cards/saveSearch',
+      filterCardsByName: 'cards/filterCardsByName',
     }),
 
     onChangeValue() {
       this.saveSearch(this.value);
-      this.filterVoicesByName();
+      this.filterCardsByName();
     },
   },
 };

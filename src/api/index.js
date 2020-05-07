@@ -1,16 +1,19 @@
-const getVoices = () => import(/* webpackChunkName: "voices" */ './mockData.json');
+import axios from 'axios';
+import constants from '@/utils/constants';
+
+const { API } = constants;
 
 /**
- * Fecth voices
+ * Fecth cards
  *
  * @async
- * @returns {Array<object>} - The voices list
+ * @returns {Array<object>} - The cards list
  */
-async function fecthVoices() {
-  const voices = await getVoices();
-  return voices.default;
+async function fecthCards() {
+  const { data } = await axios.get(`${API.HOST}/cards`);
+  return data.cards;
 }
 
 export default {
-  fecthVoices,
+  fecthCards,
 };

@@ -7,20 +7,20 @@ import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('On select a item, save the value on the store and filter the voices', async () => {
+test('On select a item, save the value on the store and filter the cards', async () => {
   const saveTagMock = jest.fn();
-  const filterVoicesByTagMock = jest.fn();
+  const filterCardsByTagMock = jest.fn();
 
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         getters: {
           tags: () => ['horror', 'robotic', 'sing'],
         },
         actions: {
           saveTag: saveTagMock,
-          filterVoicesByTag: filterVoicesByTagMock,
+          filterCardsByTag: filterCardsByTagMock,
         },
       },
     },
@@ -38,5 +38,5 @@ test('On select a item, save the value on the store and filter the voices', asyn
 
   expect(saveTagMock.mock.calls.length).toBe(1);
   expect(saveTagMock.mock.calls[0][1]).toBe('horror');
-  expect(filterVoicesByTagMock.mock.calls.length).toBe(1);
+  expect(filterCardsByTagMock.mock.calls.length).toBe(1);
 });

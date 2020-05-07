@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import '@testing-library/jest-dom';
-import ProVoices from '@/views/ProVoices.vue';
+import Favourite from '@/views/Favourite.vue';
 import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
@@ -9,18 +9,18 @@ Vue.use(Vuetify);
 test('Must renders the title of the section', async () => {
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         getters: {
           tag: () => null,
           searching: () => false,
-          all: () => [
+          favourite: () => [
             {
               id: 'zombie',
               playing: false,
               favourite: false,
               name: 'Zombie',
-              icon: 'zombie-icon',
+              imageUrl: 'image01.png',
               tags: ['horror'],
             },
             {
@@ -28,7 +28,7 @@ test('Must renders the title of the section', async () => {
               playing: false,
               favourite: false,
               name: 'Android',
-              icon: 'android-icon',
+              imageUrl: 'image02.png',
               tags: ['tech'],
             },
             {
@@ -36,7 +36,7 @@ test('Must renders the title of the section', async () => {
               playing: false,
               favourite: false,
               name: 'Cave',
-              icon: 'cave-icon',
+              imageUrl: 'image03.png',
               tags: ['horror'],
             },
           ],
@@ -45,28 +45,28 @@ test('Must renders the title of the section', async () => {
     },
   };
 
-  const { getByText } = renderWithVuetify(ProVoices, { store });
+  const { getByText } = renderWithVuetify(Favourite, { store });
 
-  const title = getByText('Pro Voices');
+  const title = getByText('Favourite');
 
   expect(title).toBeInTheDocument();
 });
 
-test('If the list of voices is not empty must renders the list of voices', async () => {
+test('If the list of cards is not empty must renders the list of cards', async () => {
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         getters: {
           tag: () => null,
           searching: () => false,
-          all: () => [
+          favourite: () => [
             {
               id: 'zombie',
               playing: false,
               favourite: false,
               name: 'Zombie',
-              icon: 'zombie-icon',
+              imageUrl: 'image01.png',
               tags: ['horror'],
             },
             {
@@ -74,7 +74,7 @@ test('If the list of voices is not empty must renders the list of voices', async
               playing: false,
               favourite: false,
               name: 'Android',
-              icon: 'android-icon',
+              imageUrl: 'image02.png',
               tags: ['tech'],
             },
             {
@@ -82,7 +82,7 @@ test('If the list of voices is not empty must renders the list of voices', async
               playing: false,
               favourite: false,
               name: 'Cave',
-              icon: 'cave-icon',
+              imageUrl: 'image03.png',
               tags: ['horror'],
             },
           ],
@@ -91,7 +91,7 @@ test('If the list of voices is not empty must renders the list of voices', async
     },
   };
 
-  const { getByText } = renderWithVuetify(ProVoices, { store });
+  const { getByText } = renderWithVuetify(Favourite, { store });
 
   const zombie = getByText('Zombie');
   const android = getByText('Android');
@@ -102,23 +102,23 @@ test('If the list of voices is not empty must renders the list of voices', async
   expect(cave).toBeInTheDocument();
 });
 
-test('If the list of voices is empty and the searching is active must show an alert message', async () => {
+test('If the list of cards is empty and the searching is active must show an alert message', async () => {
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         getters: {
           tag: () => 'Horror',
           searching: () => true,
-          all: () => [],
+          favourite: () => [],
         },
       },
     },
   };
 
-  const { getByText } = renderWithVuetify(ProVoices, { store });
+  const { getByText } = renderWithVuetify(Favourite, { store });
 
-  const alertMessage = getByText('No pro voice found on the Horror category');
+  const alertMessage = getByText('No favourite card found on the Horror category');
 
   expect(alertMessage).toBeInTheDocument();
 });

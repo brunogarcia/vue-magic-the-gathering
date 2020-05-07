@@ -7,20 +7,20 @@ import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('If there is a voice playing, stop it before play the random one', async () => {
-  const togglePlayVoiceMock = jest.fn();
-  const playRandomVoiceMock = jest.fn();
+test('If there is a card playing, stop it before play the random one', async () => {
+  const togglePlayCardMock = jest.fn();
+  const playRandomCardMock = jest.fn();
 
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         getters: {
           playingId: () => 123,
         },
         actions: {
-          togglePlayVoice: togglePlayVoiceMock,
-          playRandomVoice: playRandomVoiceMock,
+          togglePlayCard: togglePlayCardMock,
+          playRandomCard: playRandomCardMock,
         },
       },
     },
@@ -33,24 +33,24 @@ test('If there is a voice playing, stop it before play the random one', async ()
   fireEvent.click(component);
 
   expect(component).toBeInTheDocument();
-  expect(togglePlayVoiceMock.mock.calls.length).toBe(1);
-  expect(playRandomVoiceMock.mock.calls.length).toBe(1);
+  expect(togglePlayCardMock.mock.calls.length).toBe(1);
+  expect(playRandomCardMock.mock.calls.length).toBe(1);
 });
 
-test('If there is not a voice playing, play the random one', async () => {
-  const togglePlayVoiceMock = jest.fn();
-  const playRandomVoiceMock = jest.fn();
+test('If there is not a card playing, play the random one', async () => {
+  const togglePlayCardMock = jest.fn();
+  const playRandomCardMock = jest.fn();
 
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         getters: {
           playingId: () => null,
         },
         actions: {
-          togglePlayVoice: togglePlayVoiceMock,
-          playRandomVoice: playRandomVoiceMock,
+          togglePlayCard: togglePlayCardMock,
+          playRandomCard: playRandomCardMock,
         },
       },
     },
@@ -63,6 +63,6 @@ test('If there is not a voice playing, play the random one', async () => {
   fireEvent.click(component);
 
   expect(component).toBeInTheDocument();
-  expect(togglePlayVoiceMock.mock.calls.length).toBe(0);
-  expect(playRandomVoiceMock.mock.calls.length).toBe(1);
+  expect(togglePlayCardMock.mock.calls.length).toBe(0);
+  expect(playRandomCardMock.mock.calls.length).toBe(1);
 });

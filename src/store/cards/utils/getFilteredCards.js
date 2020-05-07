@@ -1,5 +1,5 @@
 import constants from '@/utils/constants';
-import checkSearchValue from '@/store/voices/utils/checkSearchValue';
+import checkSearchValue from '@/store/cards/utils/checkSearchValue';
 
 const { SORT, TAGS } = constants;
 
@@ -26,14 +26,14 @@ function sortingByName(a, b) {
 }
 
 /**
- * Sort voices
+ * Sort cards
  *
  * @param {string} sortType - The sort type
  * @param {string} a - The name to compare
  * @param {string} b - The name to compare
  * @returns {number} - The sorting value
  */
-function sortVoices(sortType, a, b) {
+function sortCards(sortType, a, b) {
   if (sortType === SORT.ASC) {
     return sortingByName(a, b);
   }
@@ -44,26 +44,26 @@ function sortVoices(sortType, a, b) {
 /**
  * Filter by name
  *
- * @param {object} voice - The voice data
- * @param {string} value - The value for filter the voices
- * @returns {Array<object>} - The list of voices filtered
+ * @param {object} card - The card data
+ * @param {string} value - The value for filter the cards
+ * @returns {Array<object>} - The list of cards filtered
  */
-function filterByName(voice, value) {
-  const voiceName = voice.name.toLowerCase();
+function filterByName(card, value) {
+  const cardName = card.name.toLowerCase();
   const filterValue = value.toLowerCase();
 
-  return voiceName.includes(filterValue);
+  return cardName.includes(filterValue);
 }
 
 /**
  * Filter by tag
  *
- * @param {object} voice - The voice data
- * @param {string} tag - The tag for filter the voices
- * @returns {Array<object>} - The list of voices filtered
+ * @param {object} card - The card data
+ * @param {string} tag - The tag for filter the cards
+ * @returns {Array<object>} - The list of cards filtered
  */
-function filterByTag(voice, tag) {
-  return voice.tags.includes(tag);
+function filterByTag(card, tag) {
+  return card.tags.includes(tag);
 }
 
 /**
@@ -74,14 +74,14 @@ function filterByTag(voice, tag) {
  *  - The tag 'all' is selected
  *
  * @param {object} payload - The payload data
- * @returns {Array<object>} - The list of voices filtered
+ * @returns {Array<object>} - The list of cards filtered
  */
 function applyScenario1(payload) {
-  const { voices, search, sortType } = payload;
+  const { cards, search, sortType } = payload;
 
-  return voices
-    .filter((voice) => filterByName(voice, search))
-    .sort((a, b) => sortVoices(sortType, a, b));
+  return cards
+    .filter((card) => filterByName(card, search))
+    .sort((a, b) => sortCards(sortType, a, b));
 }
 
 /**
@@ -89,23 +89,23 @@ function applyScenario1(payload) {
  *
  * Rules:
  * - The search have a valid value
- * - The tag selected is not 'all'
+ * - The type selected is not 'all'
  *
  * @param {object} payload - The payload data
- * @returns {Array<object>} - The list of voices filtered
+ * @returns {Array<object>} - The list of cards filtered
  */
 function applyScenario2(payload) {
   const {
-    voices,
+    cards,
     tag,
     search,
     sortType,
   } = payload;
 
-  return voices
-    .filter((voice) => filterByTag(voice, tag))
-    .filter((voice) => filterByName(voice, search))
-    .sort((a, b) => sortVoices(sortType, a, b));
+  return cards
+    .filter((card) => filterByTag(card, tag))
+    .filter((card) => filterByName(card, search))
+    .sort((a, b) => sortCards(sortType, a, b));
 }
 
 /**
@@ -116,13 +116,13 @@ function applyScenario2(payload) {
  * - The tag 'all' is selected
  *
  * @param {object} payload - The payload data
- * @returns {Array<object>} - The list of voices filtered
+ * @returns {Array<object>} - The list of cards filtered
  */
 function applyScenario3(payload) {
-  const { voices, sortType } = payload;
+  const { cards, sortType } = payload;
 
-  return voices
-    .sort((a, b) => sortVoices(sortType, a, b));
+  return cards
+    .sort((a, b) => sortCards(sortType, a, b));
 }
 
 /**
@@ -130,31 +130,31 @@ function applyScenario3(payload) {
  *
  * Rules:
  * - The search doesn't have a valid value
- * - The tag selected is not 'all'
+ * - The type selected is not 'all'
  *
  * @param {object} payload - The payload data
- * @returns {Array<object>} - The list of voices filtered
+ * @returns {Array<object>} - The list of cards filtered
  */
 function applyScenario4(payload) {
-  const { voices, tag, sortType } = payload;
+  const { cards, tag, sortType } = payload;
 
-  return voices
-    .filter((voice) => filterByTag(voice, tag))
-    .sort((a, b) => sortVoices(sortType, a, b));
+  return cards
+    .filter((card) => filterByTag(card, tag))
+    .sort((a, b) => sortCards(sortType, a, b));
 }
 
 /**
- * Get the filtered voices
+ * Get the filtered cards
  *
  * @param {object} payload - The payload data
- * @param {Array<object>} payload.voices - The list of voices
- * @param {string} payload.search - The search value for filter the voices
- * @param {string} payload.tag - The tag for filter the voices
+ * @param {Array<object>} payload.cards - The list of cards
+ * @param {string} payload.search - The search value for filter the cards
+ * @param {string} payload.tag - The type for filter the cards
  * @param {string} payload.sortType - The sort type selected
- * @returns {Array<object>} - The list of voices filtered
+ * @returns {Array<object>} - The list of cards filtered
  */
-export default function getFilteredVoices(payload) {
-  const { voices, search, tag } = payload;
+export default function getFilteredCards(payload) {
+  const { cards, search, tag } = payload;
   const isValidSearchValue = checkSearchValue(search);
 
   const scenario1 = isValidSearchValue && tag === TAGS.ALL;
@@ -178,5 +178,5 @@ export default function getFilteredVoices(payload) {
     return applyScenario4(payload);
   }
 
-  return voices;
+  return cards;
 }

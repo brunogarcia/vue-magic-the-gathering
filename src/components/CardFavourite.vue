@@ -1,19 +1,19 @@
 <template>
   <div
     role="button"
-    class="vm-voice-favourite"
-    @click.stop="onClickVoiceFavourite"
+    class="vm-card-favourite"
+    @click.stop="onClickCardFavourite"
   >
-    <VoiceFavouriteOn
+    <FavouriteOn
       v-if="isFavouriteAndHasMouseOver"
       role="img"
-      aria-label="Voice Favourite Active"
+      aria-label="Card Favourite Active"
     />
 
-    <VoiceFavouriteOff
+    <FavouriteOff
       v-if="isNotFavouriteAndHasMouseOver"
       role="img"
-      aria-label="Voice Favourite Inactive"
+      aria-label="Card Favourite Inactive"
     />
   </div>
 </template>
@@ -22,46 +22,46 @@
 import { mapActions } from 'vuex';
 import PropTypes from '@znck/prop-types';
 import types from '@/utils/types';
-import VoiceFavouriteOn from '@/assets/voice-favourite.svg';
-import VoiceFavouriteOff from '@/assets/voice-favourite-off.svg';
+import FavouriteOn from '@/assets/favourite.svg';
+import FavouriteOff from '@/assets/favourite-off.svg';
 
 export default {
-  name: 'VoiceFavourite',
+  name: 'CardFavourite',
 
   props: {
-    voice: types.voice,
+    card: types.card,
     mouseOver: PropTypes.bool,
   },
 
   components: {
-    VoiceFavouriteOn,
-    VoiceFavouriteOff,
+    FavouriteOn,
+    FavouriteOff,
   },
 
   computed: {
     isFavouriteAndHasMouseOver() {
-      return this.voice.favourite && this.mouseOver;
+      return this.card.favourite && this.mouseOver;
     },
 
     isNotFavouriteAndHasMouseOver() {
-      return !this.voice.favourite && this.mouseOver;
+      return !this.card.favourite && this.mouseOver;
     },
   },
 
   methods: {
     ...mapActions({
-      toggleFavouriteVoice: 'voices/toggleFavouriteVoice',
+      toggleFavouriteCard: 'cards/toggleFavouriteCard',
     }),
 
-    onClickVoiceFavourite() {
-      this.toggleFavouriteVoice(this.voice.id);
+    onClickCardFavourite() {
+      this.toggleFavouriteCard(this.card.id);
     },
   },
 };
 </script>
 
 <style lang="scss">
-  .vm-voice-favourite {
+  .vm-card-favourite {
     position: absolute;
     top: 0.6em;
     right: 0;

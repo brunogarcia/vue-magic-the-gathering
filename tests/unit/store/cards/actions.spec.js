@@ -1,6 +1,6 @@
 import constants from '@/utils/constants';
-import actions from '@/store/voices/actions';
-import types from '@/store/voices/utils/types';
+import actions from '@/store/cards/actions';
+import types from '@/store/cards/utils/types';
 
 const { TAGS } = constants;
 
@@ -11,32 +11,32 @@ const {
   SAVE_SEARCH,
   SAVE_TAG,
   SAVE_TAGS,
-  SAVE_ALL_VOICES,
-  SAVE_PLAYING_VOICE,
-  SAVE_RANDOM_PLAYING_VOICE,
+  SAVE_ALL_CARDS,
+  SAVE_PLAYING_CARD,
+  SAVE_RANDOM_PLAYING_CARD,
 
-  FILTER_VOICES,
+  FILTER_CARDS,
 
-  TOGGLE_PLAY_VOICE,
+  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
-  TOGGLE_FAVOURITE_VOICE,
+  TOGGLE_FAVOURITE_CARD,
 } = types;
 
 jest.mock('@/api');
 
-describe('Voices store - Actions', () => {
-  it('getVoices', async () => {
+describe('Cards store - Actions', () => {
+  it('getCards', async () => {
     const commit = jest.fn();
 
-    await actions.getVoices({ commit });
+    await actions.getCards({ commit });
 
     const expected = {
       tags: ['all', 'devices', 'horror', 'misc'],
-      voices: [
+      cards: [
         {
           id: '2x1',
           name: '2x1',
-          icon: 'VoicesVoiceIcon01.png',
+          imageUrl: 'image01.png',
           tags: ['misc'],
           playing: false,
           favourite: false,
@@ -44,7 +44,7 @@ describe('Voices store - Actions', () => {
         {
           id: '8bits',
           name: '8bits',
-          icon: 'VoicesVoiceIcon02.png',
+          imageUrl: 'image02.png',
           tags: ['devices'],
           playing: false,
           favourite: false,
@@ -52,7 +52,7 @@ describe('Voices store - Actions', () => {
         {
           id: 'zombie',
           name: 'Zombie',
-          icon: 'VoicesVoiceIcon03.png',
+          imageUrl: 'image03.png',
           tags: ['horror'],
           playing: false,
           favourite: false,
@@ -61,40 +61,40 @@ describe('Voices store - Actions', () => {
     };
 
     expect(commit).toHaveBeenCalledWith(SAVE_TAGS, expected.tags);
-    expect(commit).toHaveBeenCalledWith(SAVE_ALL_VOICES, expected.voices);
+    expect(commit).toHaveBeenCalledWith(SAVE_ALL_CARDS, expected.cards);
   });
 
-  it('playRandomVoice', async () => {
+  it('playRandomCard', async () => {
     const commit = jest.fn();
 
-    await actions.playRandomVoice({ commit });
+    await actions.playRandomCard({ commit });
 
-    expect(commit).toHaveBeenCalledWith(SAVE_RANDOM_PLAYING_VOICE);
-    expect(commit).toHaveBeenCalledWith(TOGGLE_PLAY_VOICE);
+    expect(commit).toHaveBeenCalledWith(SAVE_RANDOM_PLAYING_CARD);
+    expect(commit).toHaveBeenCalledWith(TOGGLE_PLAY_CARD);
   });
 
-  it('savePlayingVoice', async () => {
+  it('savePlayingCard', async () => {
     const commit = jest.fn();
 
-    await actions.savePlayingVoice({ commit }, '12345');
+    await actions.savePlayingCard({ commit }, '12345');
 
-    expect(commit).toHaveBeenCalledWith(SAVE_PLAYING_VOICE, '12345');
+    expect(commit).toHaveBeenCalledWith(SAVE_PLAYING_CARD, '12345');
   });
 
-  it('togglePlayVoice', async () => {
+  it('togglePlayCard', async () => {
     const commit = jest.fn();
 
-    await actions.togglePlayVoice({ commit });
+    await actions.togglePlayCard({ commit });
 
-    expect(commit).toHaveBeenCalledWith(TOGGLE_PLAY_VOICE);
+    expect(commit).toHaveBeenCalledWith(TOGGLE_PLAY_CARD);
   });
 
-  it('toggleFavouriteVoice', async () => {
+  it('toggleFavouriteCard', async () => {
     const commit = jest.fn();
 
-    await actions.toggleFavouriteVoice({ commit }, '12345');
+    await actions.toggleFavouriteCard({ commit }, '12345');
 
-    expect(commit).toHaveBeenCalledWith(TOGGLE_FAVOURITE_VOICE, '12345');
+    expect(commit).toHaveBeenCalledWith(TOGGLE_FAVOURITE_CARD, '12345');
   });
 
   it('saveSearch', async () => {
@@ -113,15 +113,15 @@ describe('Voices store - Actions', () => {
     expect(commit).toHaveBeenCalledWith(SAVE_SORT, 'asc');
   });
 
-  it('sortVoices', async () => {
+  it('sortCards', async () => {
     const commit = jest.fn();
 
-    await actions.sortVoices({ commit });
+    await actions.sortCards({ commit });
 
-    expect(commit).toHaveBeenCalledWith(FILTER_VOICES);
+    expect(commit).toHaveBeenCalledWith(FILTER_CARDS);
   });
 
-  it('filterVoicesByName: scenario #1', async () => {
+  it('filterCardsByName: scenario #1', async () => {
     /**
      * Rules:
      *  - The search value is valid:
@@ -134,13 +134,13 @@ describe('Voices store - Actions', () => {
       search: 'zombie',
     };
 
-    await actions.filterVoicesByName({ commit, state });
+    await actions.filterCardsByName({ commit, state });
 
     expect(commit).toHaveBeenCalledWith(TOGGLE_SEARCH_MODE, true);
-    expect(commit).toHaveBeenCalledWith(FILTER_VOICES);
+    expect(commit).toHaveBeenCalledWith(FILTER_CARDS);
   });
 
-  it('filterVoicesByName: scenario #2', async () => {
+  it('filterCardsByName: scenario #2', async () => {
     /**
      * Rules:
      * - The search value is not valid
@@ -152,13 +152,13 @@ describe('Voices store - Actions', () => {
       tag: 'horror',
     };
 
-    await actions.filterVoicesByName({ commit, state });
+    await actions.filterCardsByName({ commit, state });
 
     expect(commit).toHaveBeenCalledWith(TOGGLE_SEARCH_MODE, false);
-    expect(commit).toHaveBeenCalledWith(FILTER_VOICES);
+    expect(commit).toHaveBeenCalledWith(FILTER_CARDS);
   });
 
-  it('filterVoicesByName: scenario #3', async () => {
+  it('filterCardsByName: scenario #3', async () => {
     /**
      * Rules:
      * - The search value is not valid
@@ -170,7 +170,7 @@ describe('Voices store - Actions', () => {
       tag: TAGS.ALL,
     };
 
-    await actions.filterVoicesByName({ commit, state });
+    await actions.filterCardsByName({ commit, state });
 
     expect(commit).toHaveBeenCalledWith(TOGGLE_SEARCH_MODE, false);
     expect(commit).toHaveBeenCalledWith(RESET_STATE);
@@ -184,7 +184,7 @@ describe('Voices store - Actions', () => {
     expect(commit).toHaveBeenCalledWith(SAVE_TAG, 'horror');
   });
 
-  it('filterVoicesByTag: scenario #1', async () => {
+  it('filterCardsByTag: scenario #1', async () => {
     /**
      * Rules:
      * - The tag selected is 'all'
@@ -194,12 +194,12 @@ describe('Voices store - Actions', () => {
       tag: TAGS.ALL,
     };
 
-    await actions.filterVoicesByTag({ commit, state });
+    await actions.filterCardsByTag({ commit, state });
 
     expect(commit).toHaveBeenCalledWith(RESET_STATE);
   });
 
-  it('filterVoicesByTag: scenario #2', async () => {
+  it('filterCardsByTag: scenario #2', async () => {
     /**
      * Rules:
      * - The tag selected is not 'all'
@@ -209,8 +209,8 @@ describe('Voices store - Actions', () => {
       tag: 'horror',
     };
 
-    await actions.filterVoicesByTag({ commit, state });
+    await actions.filterCardsByTag({ commit, state });
 
-    expect(commit).toHaveBeenCalledWith(FILTER_VOICES);
+    expect(commit).toHaveBeenCalledWith(FILTER_CARDS);
   });
 });

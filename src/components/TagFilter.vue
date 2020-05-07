@@ -1,7 +1,7 @@
 <template>
   <v-select
     v-model="tag"
-    :items="items"
+    :items="tags"
     solo
     dense
     single-line
@@ -67,19 +67,19 @@ export default {
 
   computed: {
     ...mapGetters({
-      items: 'voices/tags',
+      tags: 'cards/tags',
     }),
   },
 
   methods: {
     ...mapActions({
-      saveTag: 'voices/saveTag',
-      filterVoicesByTag: 'voices/filterVoicesByTag',
+      saveTag: 'cards/saveTag',
+      filterCardsByTag: 'cards/filterCardsByTag',
     }),
 
     onSelectItem() {
       this.saveTag(this.tag);
-      this.filterVoicesByTag();
+      this.filterCardsByTag();
     },
   },
 };

@@ -1,38 +1,38 @@
 /**
- * Mock fecth voices for unit testing
+ * Mock fecth cards for unit testing
  *
  * @async
- * @returns {Array<object>} - The voices list
+ * @returns {Promise} - The promise resolve with the cards list
  */
-async function fecthVoices() {
-  return [
+async function fecthCards() {
+  return new Promise((res) => res([
     {
       id: '2x1',
       name: '2x1',
-      icon: 'VoicesVoiceIcon01.png',
-      tags: [
+      imageUrl: 'image01.png',
+      types: [
         'misc',
       ],
     },
     {
       id: '8bits',
       name: '8bits',
-      icon: 'VoicesVoiceIcon02.png',
-      tags: [
+      imageUrl: 'image02.png',
+      types: [
         'devices',
       ],
     },
     {
       id: 'zombie',
       name: 'Zombie',
-      icon: 'VoicesVoiceIcon03.png',
-      tags: [
+      imageUrl: 'image03.png',
+      types: [
         'horror',
       ],
     },
-  ];
+  ]));
 }
 
 export default {
-  fecthVoices,
+  fecthCards,
 };

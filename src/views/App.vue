@@ -4,8 +4,8 @@
     <v-content>
       <Loading v-if="loading" />
       <div v-else>
-        <FavouriteVoices v-if="showFavourite" />
-        <ProVoices />
+        <Favourite v-if="showFavourite" />
+        <Cards />
       </div>
     </v-content>
     <Snackbar
@@ -18,10 +18,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import AppBar from '@/views/AppBar.vue';
-import ProVoices from '@/views/ProVoices.vue';
+import Cards from '@/views/Cards.vue';
 import Loading from '@/components/Loading.vue';
 import Snackbar from '@/components/Snackbar.vue';
-import FavouriteVoices from '@/views/FavouriteVoices.vue';
+import Favourite from '@/views/Favourite.vue';
 
 export default {
   name: 'App',
@@ -30,8 +30,8 @@ export default {
     AppBar,
     Loading,
     Snackbar,
-    ProVoices,
-    FavouriteVoices,
+    Cards,
+    Favourite,
   },
 
   data: () => ({
@@ -46,7 +46,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      favourite: 'voices/favourite',
+      favourite: 'cards/favourite',
     }),
 
     showFavourite() {
@@ -56,12 +56,12 @@ export default {
 
   methods: {
     ...mapActions({
-      getVoices: 'voices/getVoices',
+      getCards: 'cards/getCards',
     }),
 
     async loadData() {
       try {
-        await this.getVoices();
+        await this.getCards();
       } catch (error) {
         this.error = true;
       } finally {

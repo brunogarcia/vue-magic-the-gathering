@@ -1,44 +1,44 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import '@testing-library/jest-dom';
-import VoiceFavourite from '@/components/VoiceFavourite.vue';
+import CardFavourite from '@/components/CardFavourite.vue';
 import { fireEvent } from '@testing-library/vue';
 import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('On click on the button, toggle the voice as favorite', async () => {
-  const toggleFavouriteVoiceMock = jest.fn();
+test('On click on the button, toggle the card as favorite', async () => {
+  const toggleFavouriteCardMock = jest.fn();
 
   const props = {
     mouseOver: false,
-    voice: {
+    card: {
       id: 'zombie',
       playing: false,
       favourite: false,
       name: 'Zombie',
-      icon: 'zombie-icon',
+      imageUrl: 'image01.png',
       tags: ['horror'],
     },
   };
 
   const store = {
     modules: {
-      voices: {
+      cards: {
         namespaced: true,
         actions: {
-          toggleFavouriteVoice: toggleFavouriteVoiceMock,
+          toggleFavouriteCard: toggleFavouriteCardMock,
         },
       },
     },
   };
 
-  const { getByRole } = renderWithVuetify(VoiceFavourite, { store, props });
+  const { getByRole } = renderWithVuetify(CardFavourite, { store, props });
 
   const favourite = getByRole('button');
 
   await fireEvent.click(favourite);
 
-  expect(toggleFavouriteVoiceMock.mock.calls.length).toBe(1);
-  expect(toggleFavouriteVoiceMock.mock.calls[0][1]).toBe('zombie');
+  expect(toggleFavouriteCardMock.mock.calls.length).toBe(1);
+  expect(toggleFavouriteCardMock.mock.calls[0][1]).toBe('zombie');
 });

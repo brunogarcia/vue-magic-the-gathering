@@ -1,9 +1,9 @@
 import api from '@/api';
 import constants from '@/utils/constants';
-import types from '@/store/voices/utils/types';
-import mapTags from '@/store/voices/utils/mapTags';
-import mapVoices from '@/store/voices/utils/mapVoices';
-import checkSearchValue from '@/store/voices/utils/checkSearchValue';
+import types from '@/store/cards/utils/types';
+import mapTags from '@/store/cards/utils/mapTags';
+import mapCards from '@/store/cards/utils/mapCards';
+import checkSearchValue from '@/store/cards/utils/checkSearchValue';
 
 const { TAGS } = constants;
 
@@ -14,32 +14,32 @@ const {
   SAVE_SEARCH,
   SAVE_TAG,
   SAVE_TAGS,
-  SAVE_ALL_VOICES,
-  SAVE_PLAYING_VOICE,
-  SAVE_RANDOM_PLAYING_VOICE,
+  SAVE_ALL_CARDS,
+  SAVE_PLAYING_CARD,
+  SAVE_RANDOM_PLAYING_CARD,
 
-  FILTER_VOICES,
+  FILTER_CARDS,
 
-  TOGGLE_PLAY_VOICE,
+  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
-  TOGGLE_FAVOURITE_VOICE,
+  TOGGLE_FAVOURITE_CARD,
 } = types;
 
 export default {
   /**
-   * Get voices
+   * Get cards
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    */
-  async getVoices({ commit }) {
+  async getCards({ commit }) {
     try {
-      const data = await api.fecthVoices();
+      const data = await api.fecthCards();
       const tags = mapTags(data);
-      const voices = mapVoices(data);
+      const cards = mapCards(data);
 
       commit(SAVE_TAGS, tags);
-      commit(SAVE_ALL_VOICES, voices);
+      commit(SAVE_ALL_CARDS, cards);
 
       return true;
     } catch (error) {
@@ -48,46 +48,46 @@ export default {
   },
 
   /**
-   * Play random voice
+   * Play random card
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    */
-  playRandomVoice({ commit }) {
-    commit(SAVE_RANDOM_PLAYING_VOICE);
-    commit(TOGGLE_PLAY_VOICE);
+  playRandomCard({ commit }) {
+    commit(SAVE_RANDOM_PLAYING_CARD);
+    commit(TOGGLE_PLAY_CARD);
   },
 
   /**
-   * Save playing id voice
+   * Save playing id card
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
-   * @param {string} id - The voice id
+   * @param {string} id - The card id
    */
-  savePlayingVoice({ commit }, id) {
-    commit(SAVE_PLAYING_VOICE, id);
+  savePlayingCard({ commit }, id) {
+    commit(SAVE_PLAYING_CARD, id);
   },
 
   /**
-   * Toggle play voice
+   * Toggle play card
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    */
-  togglePlayVoice({ commit }) {
-    commit(TOGGLE_PLAY_VOICE);
+  togglePlayCard({ commit }) {
+    commit(TOGGLE_PLAY_CARD);
   },
 
   /**
-   * Toggle favourite voice
+   * Toggle favourite card
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
-   * @param {string} id - The voice id
+   * @param {string} id - The card id
    */
-  toggleFavouriteVoice({ commit }, id) {
-    commit(TOGGLE_FAVOURITE_VOICE, id);
+  toggleFavouriteCard({ commit }, id) {
+    commit(TOGGLE_FAVOURITE_CARD, id);
   },
 
   /**
@@ -113,33 +113,33 @@ export default {
   },
 
   /**
-   * Sort voices
+   * Sort cards
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    */
-  sortVoices({ commit }) {
-    commit(FILTER_VOICES);
+  sortCards({ commit }) {
+    commit(FILTER_CARDS);
   },
 
   /**
-   * Filter voices by name
+   * Filter cards by name
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    * @param {Function} context.state - Module state
    */
-  filterVoicesByName({ commit, state }) {
+  filterCardsByName({ commit, state }) {
     const isValidValue = checkSearchValue(state.search);
 
     commit(TOGGLE_SEARCH_MODE, isValidValue);
 
     if (isValidValue) {
-      commit(FILTER_VOICES);
+      commit(FILTER_CARDS);
     }
 
     if (!isValidValue && state.tag !== TAGS.ALL) {
-      commit(FILTER_VOICES);
+      commit(FILTER_CARDS);
     }
 
     if (!isValidValue && state.tag === TAGS.ALL) {
@@ -159,17 +159,17 @@ export default {
   },
 
   /**
-   * Filter voices by tag
+   * Filter cards by tag
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    * @param {Function} context.state - Module state
    */
-  filterVoicesByTag({ commit, state }) {
+  filterCardsByTag({ commit, state }) {
     if (state.tag === TAGS.ALL) {
       commit(RESET_STATE);
     } else {
-      commit(FILTER_VOICES);
+      commit(FILTER_CARDS);
     }
   },
 };

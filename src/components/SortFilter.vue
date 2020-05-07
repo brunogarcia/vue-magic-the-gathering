@@ -7,7 +7,7 @@
     single-line
     hide-details
     menu-props="auto"
-    label="Sort voices"
+    label="Sort cards"
     @input="onSelectItem"
   >
     <template v-slot:prepend>
@@ -68,13 +68,13 @@ export default {
 
   methods: {
     ...mapActions({
-      saveSort: 'voices/saveSort',
-      sortVoices: 'voices/sortVoices',
+      saveSort: 'cards/saveSort',
+      sortCards: 'cards/sortCards',
     }),
 
     onSelectItem() {
       this.saveSort(this.sort);
-      this.sortVoices();
+      this.sortCards();
     },
   },
 };

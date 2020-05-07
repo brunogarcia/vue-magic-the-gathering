@@ -3,8 +3,8 @@
     role="button"
     tabindex="0"
     class="text-right"
-    title="Choose a random voice"
-    @click="onRandomPlayVoice"
+    title="Choose a random card"
+    @click="onRandomPlayCard"
   >
     <RandomIcon
       role="img"
@@ -32,24 +32,24 @@ export default {
 
   computed: {
     ...mapGetters({
-      playingId: 'voices/playingId',
+      playingId: 'cards/playingId',
     }),
   },
 
   methods: {
     ...mapActions({
-      playRandomVoice: 'voices/playRandomVoice',
-      togglePlayVoice: 'voices/togglePlayVoice',
+      playRandomCard: 'cards/playRandomCard',
+      togglePlayCard: 'cards/togglePlayCard',
     }),
 
-    onRandomPlayVoice() {
-      // If there is a voice playing, stop it before play the random one
+    onRandomPlayCard() {
+      // If there is a card playing, stop it before play the random one
       if (!isNil(this.playingId)) {
-        this.togglePlayVoice();
+        this.togglePlayCard();
       }
 
       // Play the random one
-      this.playRandomVoice();
+      this.playRandomCard();
     },
   },
 };

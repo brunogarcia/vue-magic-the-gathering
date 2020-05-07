@@ -1,4 +1,4 @@
-import getters from '@/store/voices/getters';
+import getters from '@/store/cards/getters';
 
 describe('Voices store - Getters', () => {
   it('playingId', () => {
@@ -30,7 +30,7 @@ describe('Voices store - Getters', () => {
       {
         id: '2x1',
         name: '2x1',
-        icon: 'VoicesVoiceIcon01.png',
+        imageUrl: 'image01.png',
         tags: ['misc'],
         playing: false,
         favourite: false,
@@ -38,7 +38,7 @@ describe('Voices store - Getters', () => {
       {
         id: '8bits',
         name: '8bits',
-        icon: 'VoicesVoiceIcon02.png',
+        imageUrl: 'image02.png',
         tags: ['devices'],
         playing: false,
         favourite: false,
@@ -46,7 +46,7 @@ describe('Voices store - Getters', () => {
       {
         id: 'zombie',
         name: 'Zombie',
-        icon: 'VoicesVoiceIcon03.png',
+        imageUrl: 'image03.png',
         tags: ['horror'],
         playing: false,
         favourite: false,
@@ -58,7 +58,7 @@ describe('Voices store - Getters', () => {
         {
           id: '2x1',
           name: '2x1',
-          icon: 'VoicesVoiceIcon01.png',
+          imageUrl: 'image01.png',
           tags: ['misc'],
           playing: false,
           favourite: false,
@@ -66,7 +66,7 @@ describe('Voices store - Getters', () => {
         {
           id: '8bits',
           name: '8bits',
-          icon: 'VoicesVoiceIcon02.png',
+          imageUrl: 'image02.png',
           tags: ['devices'],
           playing: false,
           favourite: false,
@@ -74,7 +74,7 @@ describe('Voices store - Getters', () => {
         {
           id: 'zombie',
           name: 'Zombie',
-          icon: 'VoicesVoiceIcon03.png',
+          imageUrl: 'image03.png',
           tags: ['horror'],
           playing: false,
           favourite: false,
@@ -92,7 +92,7 @@ describe('Voices store - Getters', () => {
       {
         id: '2x1',
         name: '2x1',
-        icon: 'VoicesVoiceIcon01.png',
+        imageUrl: 'image01.png',
         tags: ['misc'],
         playing: false,
         favourite: true,
@@ -104,7 +104,7 @@ describe('Voices store - Getters', () => {
         {
           id: '2x1',
           name: '2x1',
-          icon: 'VoicesVoiceIcon01.png',
+          imageUrl: 'image01.png',
           tags: ['misc'],
           playing: false,
           favourite: true,
@@ -112,7 +112,7 @@ describe('Voices store - Getters', () => {
         {
           id: '8bits',
           name: '8bits',
-          icon: 'VoicesVoiceIcon02.png',
+          imageUrl: 'image02.png',
           tags: ['devices'],
           playing: false,
           favourite: false,
@@ -120,7 +120,7 @@ describe('Voices store - Getters', () => {
         {
           id: 'zombie',
           name: 'Zombie',
-          icon: 'VoicesVoiceIcon03.png',
+          imageUrl: 'image03.png',
           tags: ['horror'],
           playing: false,
           favourite: false,

@@ -1,7 +1,7 @@
-import types from '@/store/voices/utils/types';
-import getRandomVoice from '@/store/voices/utils/getRandomVoice';
-import getPlayingVoices from '@/store/voices/utils/getPlayingVoices';
-import getFilteredVoices from '@/store/voices/utils/getFilteredVoices';
+import types from '@/store/cards/utils/types';
+import getRandomCard from '@/store/cards/utils/getRandomCard';
+import getPlayingCards from '@/store/cards/utils/getPlayingCards';
+import getFilteredCards from '@/store/cards/utils/getFilteredCards';
 
 const {
   RESET_STATE,
@@ -10,15 +10,15 @@ const {
   SAVE_SEARCH,
   SAVE_TAG,
   SAVE_TAGS,
-  SAVE_ALL_VOICES,
-  SAVE_PLAYING_VOICE,
-  SAVE_RANDOM_PLAYING_VOICE,
+  SAVE_ALL_CARDS,
+  SAVE_PLAYING_CARD,
+  SAVE_RANDOM_PLAYING_CARD,
 
-  FILTER_VOICES,
+  FILTER_CARDS,
 
-  TOGGLE_PLAY_VOICE,
+  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
-  TOGGLE_FAVOURITE_VOICE,
+  TOGGLE_FAVOURITE_CARD,
 } = types;
 
 export default {
@@ -63,47 +63,47 @@ export default {
   },
 
   /**
-   * Save voices
+   * Save cards
    *
    * @param {object} state - Module state
-   * @param {object} voices - The voices to store
+   * @param {object} cards - The cards to store
    */
-  [SAVE_ALL_VOICES](state, voices) {
-    state.all = voices;
-    state.cache = voices;
+  [SAVE_ALL_CARDS](state, cards) {
+    state.all = cards;
+    state.cache = cards;
   },
 
   /**
-   * Save random playing voice
+   * Save random playing card
    *
    * @param {object} state - Module state
    */
-  [SAVE_RANDOM_PLAYING_VOICE](state) {
-    const voice = getRandomVoice({
-      voices: [...state.all],
+  [SAVE_RANDOM_PLAYING_CARD](state) {
+    const card = getRandomCard({
+      cards: [...state.all],
       playingId: state.playingId,
     });
 
-    state.playingId = voice.id;
+    state.playingId = card.id;
   },
 
   /**
-   * Save playing id voice
+   * Save playing id card
    *
    * @param {object} state - Module state
-   * @param {string} id - The voice id
+   * @param {string} id - The card id
    */
-  [SAVE_PLAYING_VOICE](state, id) {
+  [SAVE_PLAYING_CARD](state, id) {
     state.playingId = id;
   },
 
   /**
-   * Toggle play voice
+   * Toggle play card
    *
    * @param {object} state - Module state
    */
-  [TOGGLE_PLAY_VOICE](state) {
-    const { all, cache } = getPlayingVoices({
+  [TOGGLE_PLAY_CARD](state) {
+    const { all, cache } = getPlayingCards({
       id: state.playingId,
       all: state.all,
       cache: state.cache,
@@ -119,20 +119,20 @@ export default {
   },
 
   /**
-   * Toggle favourite voice
+   * Toggle favourite card
    *
    * @param {object} state - Module state
-   * @param {string} id - The voice id
+   * @param {string} id - The card id
    */
-  [TOGGLE_FAVOURITE_VOICE](state, id) {
+  [TOGGLE_FAVOURITE_CARD](state, id) {
     const temp = [...state.all];
 
-    // Find the index of the voice
-    const voiceIndex = temp.findIndex((voice) => voice.id === id);
+    // Find the index of the card
+    const cardIndex = temp.findIndex((card) => card.id === id);
 
-    // If the voice exists, update the voice
-    if (voiceIndex !== -1) {
-      temp[voiceIndex].favourite = !temp[voiceIndex].favourite;
+    // If the card exists, update the card
+    if (cardIndex !== -1) {
+      temp[cardIndex].favourite = !temp[cardIndex].favourite;
       state.all = temp;
     }
   },
@@ -148,11 +148,11 @@ export default {
   },
 
   /**
-   * Filter and sort the voices by tag and search value
+   * Filter and sort the cards by tag and search value
    *
    * @param {object} state - Module state
    */
-  [FILTER_VOICES](state) {
+  [FILTER_CARDS](state) {
     const {
       tag,
       sort,
@@ -160,11 +160,11 @@ export default {
       cache,
     } = state;
 
-    state.all = getFilteredVoices({
+    state.all = getFilteredCards({
       tag,
       search,
       sortType: sort,
-      voices: cache,
+      cards: cache,
     });
   },
 

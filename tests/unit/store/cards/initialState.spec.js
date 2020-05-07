@@ -1,5 +1,5 @@
 import constants from '@/utils/constants';
-import initialState from '@/store/voices/initialState';
+import initialState from '@/store/cards/initialState';
 
 const { SORT, TAGS } = constants;
 
