@@ -1,4 +1,6 @@
-# Vue with search and multiple filters
+# Vue and the API of Magic The Gathering
+
+A project developed with Vue, Vuex, Vuetify, Vue Testing Library, and the API of Magic The Gathering.
 
 ## Project setup
 ```
