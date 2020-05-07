@@ -6,6 +6,7 @@
       <div v-else>
         <Favourite v-if="showFavourite" />
         <Cards />
+        <PlayCard v-if="showPlayCard" />
       </div>
     </v-content>
     <Snackbar
@@ -16,9 +17,11 @@
 </template>
 
 <script>
+import isNil from 'lodash.isnil';
 import { mapActions, mapGetters } from 'vuex';
 import AppBar from '@/views/AppBar.vue';
 import Cards from '@/views/Cards.vue';
+import PlayCard from '@/components/PlayCard.vue';
 import Loading from '@/components/Loading.vue';
 import Snackbar from '@/components/Snackbar.vue';
 import Favourite from '@/views/Favourite.vue';
@@ -30,6 +33,7 @@ export default {
     AppBar,
     Loading,
     Snackbar,
+    PlayCard,
     Cards,
     Favourite,
   },
@@ -47,10 +51,15 @@ export default {
   computed: {
     ...mapGetters({
       favourite: 'cards/favourite',
+      playingId: 'cards/playingId',
     }),
 
     showFavourite() {
       return this.favourite.length > 0;
+    },
+
+    showPlayCard() {
+      return !isNil(this.playingId);
     },
   },
 

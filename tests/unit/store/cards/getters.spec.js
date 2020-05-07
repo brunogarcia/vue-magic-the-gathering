@@ -7,6 +7,50 @@ describe('Voices store - Getters', () => {
     expect(actual).toBe('12345');
   });
 
+  it('playingCard', () => {
+    const expected = {
+      id: 'zombie',
+      name: 'Zombie',
+      imageUrl: 'image03.png',
+      tags: ['horror'],
+      playing: false,
+      favourite: false,
+    };
+
+    const state = {
+      playingId: 'zombie',
+      cache: [
+        {
+          id: '2x1',
+          name: '2x1',
+          imageUrl: 'image01.png',
+          tags: ['misc'],
+          playing: false,
+          favourite: false,
+        },
+        {
+          id: '8bits',
+          name: '8bits',
+          imageUrl: 'image02.png',
+          tags: ['devices'],
+          playing: false,
+          favourite: false,
+        },
+        {
+          id: 'zombie',
+          name: 'Zombie',
+          imageUrl: 'image03.png',
+          tags: ['horror'],
+          playing: false,
+          favourite: false,
+        },
+      ],
+    };
+
+    const actual = getters.playingCard(state);
+    expect(actual).toEqual(expected);
+  });
+
   it('searching', () => {
     const state = { searching: true };
     const actual = getters.searching(state);

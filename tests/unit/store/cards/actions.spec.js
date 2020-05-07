@@ -12,12 +12,12 @@ const {
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_CARDS,
-  SAVE_PLAYING_CARD,
-  SAVE_RANDOM_PLAYING_CARD,
+
+  PLAY_CARD,
+  PLAY_RANDOM_CARD,
 
   FILTER_CARDS,
 
-  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_CARD,
 } = types;
@@ -69,24 +69,15 @@ describe('Cards store - Actions', () => {
 
     await actions.playRandomCard({ commit });
 
-    expect(commit).toHaveBeenCalledWith(SAVE_RANDOM_PLAYING_CARD);
-    expect(commit).toHaveBeenCalledWith(TOGGLE_PLAY_CARD);
+    expect(commit).toHaveBeenCalledWith(PLAY_RANDOM_CARD);
   });
 
-  it('savePlayingCard', async () => {
+  it('playCard', async () => {
     const commit = jest.fn();
 
-    await actions.savePlayingCard({ commit }, '12345');
+    await actions.playCard({ commit }, '12345');
 
-    expect(commit).toHaveBeenCalledWith(SAVE_PLAYING_CARD, '12345');
-  });
-
-  it('togglePlayCard', async () => {
-    const commit = jest.fn();
-
-    await actions.togglePlayCard({ commit });
-
-    expect(commit).toHaveBeenCalledWith(TOGGLE_PLAY_CARD);
+    expect(commit).toHaveBeenCalledWith(PLAY_CARD, '12345');
   });
 
   it('toggleFavouriteCard', async () => {

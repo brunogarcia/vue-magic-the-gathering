@@ -12,12 +12,12 @@ const {
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_CARDS,
-  SAVE_PLAYING_CARD,
-  SAVE_RANDOM_PLAYING_CARD,
+
+  PLAY_CARD,
+  PLAY_RANDOM_CARD,
 
   FILTER_CARDS,
 
-  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_CARD,
 } = types;
@@ -83,77 +83,17 @@ describe('Voices store - Mutations', () => {
       ],
     };
 
-    mutations[SAVE_RANDOM_PLAYING_CARD](state);
+    mutations[PLAY_RANDOM_CARD](state);
 
     expect(state.playingId).toEqual('123');
   });
 
-  it('Save playing card', () => {
+  it('Play card', () => {
     const state = { playingId: null };
 
-    mutations[SAVE_PLAYING_CARD](state, '123');
+    mutations[PLAY_CARD](state, '123');
 
     expect(state.playingId).toBe('123');
-  });
-
-  it('Toggle play card: all list', () => {
-    const expected = {
-      all: [
-        { id: '123', playing: false },
-        { id: '456', playing: false },
-      ],
-      cache: [
-        { id: '789', playing: false },
-        { id: '135', playing: false },
-      ],
-    };
-
-    const state = {
-      playingId: '456',
-      all: [
-        { id: '123', playing: false },
-        { id: '456', playing: true },
-      ],
-      cache: [
-        { id: '789', playing: false },
-        { id: '135', playing: false },
-      ],
-    };
-
-    mutations[TOGGLE_PLAY_CARD](state);
-
-    expect(state.all).toEqual(expected.all);
-    expect(state.cache).toEqual(expected.cache);
-  });
-
-  it('Toggle play card: cache list', () => {
-    const expected = {
-      all: [
-        { id: '123', playing: false },
-        { id: '456', playing: false },
-      ],
-      cache: [
-        { id: '789', playing: false },
-        { id: '135', playing: false },
-      ],
-    };
-
-    const state = {
-      playingId: '135',
-      all: [
-        { id: '123', playing: false },
-        { id: '456', playing: false },
-      ],
-      cache: [
-        { id: '789', playing: false },
-        { id: '135', playing: true },
-      ],
-    };
-
-    mutations[TOGGLE_PLAY_CARD](state);
-
-    expect(state.all).toEqual(expected.all);
-    expect(state.cache).toEqual(expected.cache);
   });
 
   it('Toggle favourite card with a valid id', () => {

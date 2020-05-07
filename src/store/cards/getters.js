@@ -7,6 +7,18 @@ export default {
    */
   playingId: (state) => state.playingId,
 
+
+  /**
+   * Get the playing card data
+   *
+   * @param {object} state - The state of the module
+   * @returns {object} - The card
+   */
+  playingCard: (state) => {
+    const cardIndex = state.cache.findIndex((card) => card.id === state.playingId);
+    return state.cache[cardIndex];
+  },
+
   /**
    * Get search mode
    *

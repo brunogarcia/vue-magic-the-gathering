@@ -7,9 +7,8 @@ import renderWithVuetify from '../helpers/renderWithVuetify';
 
 Vue.use(Vuetify);
 
-test('On click on the button, store the id and play/pause the card', async () => {
-  const savePlayingCardMock = jest.fn();
-  const togglePlayCardMock = jest.fn();
+test('On click on the button, play the card', async () => {
+  const playCardMock = jest.fn();
 
   const props = {
     card: {
@@ -27,8 +26,7 @@ test('On click on the button, store the id and play/pause the card', async () =>
       cards: {
         namespaced: true,
         actions: {
-          savePlayingCard: savePlayingCardMock,
-          togglePlayCard: togglePlayCardMock,
+          playCard: playCardMock,
         },
       },
     },
@@ -40,7 +38,6 @@ test('On click on the button, store the id and play/pause the card', async () =>
 
   await fireEvent.click(card);
 
-  expect(savePlayingCardMock.mock.calls.length).toBe(1);
-  expect(savePlayingCardMock.mock.calls[0][1]).toBe('zombie');
-  expect(togglePlayCardMock.mock.calls.length).toBe(1);
+  expect(playCardMock.mock.calls.length).toBe(1);
+  expect(playCardMock.mock.calls[0][1]).toBe('zombie');
 });

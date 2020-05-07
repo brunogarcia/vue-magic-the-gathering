@@ -1,6 +1,5 @@
 import types from '@/store/cards/utils/types';
 import getRandomCard from '@/store/cards/utils/getRandomCard';
-import getPlayingCards from '@/store/cards/utils/getPlayingCards';
 import getFilteredCards from '@/store/cards/utils/getFilteredCards';
 
 const {
@@ -11,12 +10,12 @@ const {
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_CARDS,
-  SAVE_PLAYING_CARD,
-  SAVE_RANDOM_PLAYING_CARD,
+
+  PLAY_CARD,
+  PLAY_RANDOM_CARD,
 
   FILTER_CARDS,
 
-  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_CARD,
 } = types;
@@ -78,7 +77,7 @@ export default {
    *
    * @param {object} state - Module state
    */
-  [SAVE_RANDOM_PLAYING_CARD](state) {
+  [PLAY_RANDOM_CARD](state) {
     const card = getRandomCard({
       cards: [...state.all],
       playingId: state.playingId,
@@ -93,29 +92,8 @@ export default {
    * @param {object} state - Module state
    * @param {string} id - The card id
    */
-  [SAVE_PLAYING_CARD](state, id) {
+  [PLAY_CARD](state, id) {
     state.playingId = id;
-  },
-
-  /**
-   * Toggle play card
-   *
-   * @param {object} state - Module state
-   */
-  [TOGGLE_PLAY_CARD](state) {
-    const { all, cache } = getPlayingCards({
-      id: state.playingId,
-      all: state.all,
-      cache: state.cache,
-    });
-
-    if (all.length > 0) {
-      state.all = all;
-    }
-
-    if (cache.length > 0) {
-      state.cache = cache;
-    }
   },
 
   /**

@@ -6,6 +6,7 @@ const card = PropTypes.shape({
   favourite: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,
+  text: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 

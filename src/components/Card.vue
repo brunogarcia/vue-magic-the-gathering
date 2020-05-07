@@ -47,13 +47,11 @@ export default {
 
   methods: {
     ...mapActions({
-      savePlayingCard: 'cards/savePlayingCard',
-      togglePlayCard: 'cards/togglePlayCard',
+      playCard: 'cards/playCard',
     }),
 
     onClickCard() {
-      this.savePlayingCard(this.card.id);
-      this.togglePlayCard();
+      this.playCard(this.card.id);
     },
 
     onMouseOverCard() {

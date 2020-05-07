@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import isNil from 'lodash.isnil';
 import { mapActions, mapGetters } from 'vuex';
 import RandomIcon from '@/assets/button-random.svg';
 
@@ -39,16 +38,9 @@ export default {
   methods: {
     ...mapActions({
       playRandomCard: 'cards/playRandomCard',
-      togglePlayCard: 'cards/togglePlayCard',
     }),
 
     onRandomPlayCard() {
-      // If there is a card playing, stop it before play the random one
-      if (!isNil(this.playingId)) {
-        this.togglePlayCard();
-      }
-
-      // Play the random one
       this.playRandomCard();
     },
   },

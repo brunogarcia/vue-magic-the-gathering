@@ -15,11 +15,13 @@ export default function mapCards(cards) {
         name,
         imageUrl,
         types,
+        text,
       } = card;
 
       return {
         id,
         name,
+        text,
         imageUrl,
         tags: types,
         playing: false,

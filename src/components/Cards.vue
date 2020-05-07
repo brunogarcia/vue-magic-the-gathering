@@ -5,7 +5,7 @@
       :key="card.id"
       cols="6"
       sm="4"
-      md="3"
+      lg="3"
     >
       <Card :card="card" />
     </v-col>

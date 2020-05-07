@@ -15,12 +15,11 @@ const {
   SAVE_TAG,
   SAVE_TAGS,
   SAVE_ALL_CARDS,
-  SAVE_PLAYING_CARD,
-  SAVE_RANDOM_PLAYING_CARD,
+  PLAY_RANDOM_CARD,
 
+  PLAY_CARD,
   FILTER_CARDS,
 
-  TOGGLE_PLAY_CARD,
   TOGGLE_SEARCH_MODE,
   TOGGLE_FAVOURITE_CARD,
 } = types;
@@ -54,29 +53,18 @@ export default {
    * @param {Function} context.commit - Vuex commit
    */
   playRandomCard({ commit }) {
-    commit(SAVE_RANDOM_PLAYING_CARD);
-    commit(TOGGLE_PLAY_CARD);
+    commit(PLAY_RANDOM_CARD);
   },
 
   /**
-   * Save playing id card
+   * Play card
    *
    * @param {object} context - Vuex context
    * @param {Function} context.commit - Vuex commit
    * @param {string} id - The card id
    */
-  savePlayingCard({ commit }, id) {
-    commit(SAVE_PLAYING_CARD, id);
-  },
-
-  /**
-   * Toggle play card
-   *
-   * @param {object} context - Vuex context
-   * @param {Function} context.commit - Vuex commit
-   */
-  togglePlayCard({ commit }) {
-    commit(TOGGLE_PLAY_CARD);
+  playCard({ commit }, id) {
+    commit(PLAY_CARD, id);
   },
 
   /**

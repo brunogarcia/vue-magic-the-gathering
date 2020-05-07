@@ -27,12 +27,12 @@
     </template>
 
     <template v-slot:item="{ item }">
-      <span class="white--text text-capitalize">{{ item }}</span>
+      <span class="text-capitalize">{{ item }}</span>
     </template>
 
     <template v-slot:selection="{ item }">
       <span
-        class="d-none d-sm-block white--text text-capitalize">
+        class="d-none d-sm-block text-capitalize">
         {{ item }}
       </span>
 
