@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@znck/prop-types": "^0.6.3",
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "core-js": "^3.6.4",
     "lodash.isnil": "^4.0.0",
     "vue": "^2.6.11",
